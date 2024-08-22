@@ -21,9 +21,17 @@
         }
 
         /* Style for fixed-size video, PDF, and images */
-        iframe, embed, img {
+        iframe, img {
             width: 600px;
             height: 400px;
+            margin: 20px;
+            display: block;
+        }
+
+        /* Style for the PDF to make it twice the original size */
+        embed {
+            width: 1200px;
+            height: 800px;
             margin: 20px;
             display: block;
         }
@@ -119,7 +127,7 @@
     <h2>Part 3: Let’s build our bot</h2>
     <p>Now that you’ve coded the spinning action, it’s time to bring your robot to life! Follow the instructions in the PDF below to build your digging robot.</p>
     
-    <!-- Embedding the PDF -->
+    <!-- Embedding the PDF (now twice the original size) -->
     <embed src="Digger.pdf" type="application/pdf">
     
     <!-- Instruction Below PDF Viewer -->
