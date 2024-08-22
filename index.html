@@ -351,32 +351,51 @@
 
     <script>
    // Detect if the device is an iPad
-    function isiPad() {
-        return /iPad/i.test(navigator.userAgent);
+function isiPad() {
+    return /iPad/i.test(navigator.userAgent);
+}
+
+// Show PDF overlay with controls for iPad
+function showPDF() {
+    document.getElementById('pdfOverlay').style.display = 'flex';
+    if (isiPad()) {
+        document.getElementById('pdfControls').style.display = 'block';
     }
+}
 
-    // Set the appropriate link for the upload button based on the device
-    function setUploadButtonLink() {
-        const uploadButton = document.getElementById('uploadButton');
+// Hide PDF overlay
+function closePDF() {
+    document.getElementById('pdfOverlay').style.display = 'none';
+    document.getElementById('pdfControls').style.display = 'none';
+}
 
-        if (isiPad()) {
-            uploadButton.onclick = function() {
-                // Attempt to open the LEGO Spike app
-                window.location.href = 'legoedu-spike://';
-                // If the app doesn't open, navigate to the regular site after a short delay
-                setTimeout(function() {
-                    window.location.href = 'https://apps.apple.com/us/app/spike-lego-education/id6443545905';
-                }, 500);
-            };
-        } else {
-            uploadButton.onclick = function() {
+// Function to scroll the PDF
+function scrollPDF(direction) {
+    const pdfEmbed = document.getElementById('pdfEmbed');
+    pdfEmbed.scrollBy(0, direction * window.innerHeight);
+}
+
+// Set the correct link and display controls based on the device
+function setUploadButtonLink() {
+    const uploadButton = document.getElementById('uploadButton');
+
+    if (isiPad()) {
+        uploadButton.onclick = function() {
+            window.location.href = 'legoedu-spike://';
+            setTimeout(function() {
                 window.location.href = 'https://apps.apple.com/us/app/spike-lego-education/id6443545905';
-            };
-        }
+            }, 500);
+        };
+    } else {
+        uploadButton.onclick = function() {
+            window.location.href = 'https://apps.apple.com/us/app/spike-lego-education/id6443545905';
+        };
     }
+}
 
-    // Call the function to set the correct link when the page loads
-    setUploadButtonLink();
+// Call the function to set the correct link when the page loads
+setUploadButtonLink();
+
 
         let currentPage = 0;
         const cards = document.querySelectorAll('.card');
