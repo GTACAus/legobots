@@ -342,11 +342,15 @@
             <button onclick="prevPage()">&#9664; Prev</button>
         </div>
     </div>
-    <!-- PDF Overlay -->
     <div id="pdfOverlay" class="pdf-overlay" style="display: none;">
-    <embed src="https://gtacaus.github.io/legobots/Digger.pdf" type="application/pdf" width="80%" height="80%">
+    <embed id="pdfEmbed" src="https://gtacaus.github.io/legobots/Digger.pdf" type="application/pdf" width="80%" height="80%">
+    <div id="pdfControls" style="position: absolute; top: 50%; left: 10px; z-index: 1001;">
+        <button onclick="scrollPDF(-1)" style="margin-bottom: 10px;">&#9650; Page Up</button>
+        <button onclick="scrollPDF(1)">&#9660; Page Down</button>
+    </div>
     <button class="close-button" onclick="closePDF()">X</button>
 </div>
+
 
 
     <script>
@@ -357,14 +361,16 @@ function isiPad() {
 
 // Show PDF overlay with controls for iPad
 function showPDF() {
+    document.body.style.overflow = 'hidden'; // Prevent body from scrolling
     document.getElementById('pdfOverlay').style.display = 'flex';
     if (isiPad()) {
         document.getElementById('pdfControls').style.display = 'block';
     }
 }
 
-// Hide PDF overlay
+// Hide PDF overlay and re-enable body scrolling
 function closePDF() {
+    document.body.style.overflow = 'auto'; // Re-enable body scrolling
     document.getElementById('pdfOverlay').style.display = 'none';
     document.getElementById('pdfControls').style.display = 'none';
 }
@@ -395,6 +401,7 @@ function setUploadButtonLink() {
 
 // Call the function to set the correct link when the page loads
 setUploadButtonLink();
+
 
 
         let currentPage = 0;
