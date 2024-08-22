@@ -165,12 +165,21 @@
     <p><a href="Digger.llsp3" download="Digger.llsp3">Download Spike Prime Code: Digger.llsp3</a></p>
     
     <!-- Help buttons on the right side, full height -->
-    <button id="button1" class="help-button" onclick="openSidebar('uploadCode')">HELP: Uploading code to LEGO Spike Robot</button>
-    <button id="button2" class="help-button" onclick="openSidebar('codingLego')">HELP: Coding in LEGO Spike</button>
-    <button id="button3" class="help-button" onclick="openSidebar('codingScratch')">HELP: Coding in Scratch</button>
+    <button id="button2" class="help-button" onclick="openSidebar('uploadCode')">HELP: Uploading code to LEGO Spike Robot</button>
+    <button id="button3" class="help-button" onclick="openSidebar('codingLego')">HELP: Coding in LEGO Spike</button>
+    <button id="button1" class="help-button" onclick="openSidebar('codingScratch')">HELP: Coding in Scratch</button>
     <button id="button4" class="help-button" onclick="openSidebar('pluggingMotors')">HELP: Lights, sensors and motors - how can we use them?</button>
     <button id="button5" class="help-button" onclick="openSidebar('legoProjects')">HELP: LEGO Spike Projects like this one</button>
 
+    <!-- Sidebar for Coding in Scratch -->
+    <div id="codingScratch" class="sidebar">
+        <span class="closebtn" onclick="closeSidebar('codingScratch')">&times;</span>
+        <div class="sidebar-content">
+            <h2>Coding in Scratch</h2>
+            <p>Instructions and tips for coding in Scratch...</p>
+        </div>
+    </div>
+    
     <!-- Sidebar for Uploading Code -->
     <div id="uploadCode" class="sidebar">
         <span class="closebtn" onclick="closeSidebar('uploadCode')">&times;</span>
@@ -193,15 +202,6 @@
             <p>Instructions and tips for coding in LEGO Spike...</p>
             <img src="codeblocks.JPG" alt="Codeblocks Image">
             <p><strong>Navigate to:</strong> <a href="https://spike.legoeducation.com/prime/help/lls-help-word-blocks#lls-help-word-blocks" target="_blank">https://spike.legoeducation.com/prime/help/lls-help-word-blocks#lls-help-word-blocks</a></p>
-        </div>
-    </div>
-
-    <!-- Sidebar for Coding in Scratch -->
-    <div id="codingScratch" class="sidebar">
-        <span class="closebtn" onclick="closeSidebar('codingScratch')">&times;</span>
-        <div class="sidebar-content">
-            <h2>Coding in Scratch</h2>
-            <p>Instructions and tips for coding in Scratch...</p>
         </div>
     </div>
 
