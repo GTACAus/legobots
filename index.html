@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help Sidebar Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Scratch Project and YouTube Video with Help Sidebar</title>
     <style>
         /* Style for the buttons */
         .help-button {
             position: fixed;
             right: 0;
+            top: 0;
             width: 200px;
+            height: 20%;
             padding: 15px;
             background-color: blue;
             color: white;
@@ -16,13 +19,20 @@
             cursor: pointer;
             border: none;
             text-align: left;
-            margin-top: 10px;
             transition: background-color 0.3s;
+            z-index: 1001;
         }
 
         .help-button:hover {
             background-color: darkblue;
         }
+
+        /* Adjusting each button's position */
+        #button1 { top: 0; }
+        #button2 { top: 20%; }
+        #button3 { top: 40%; }
+        #button4 { top: 60%; }
+        #button5 { top: 80%; }
 
         /* Style for the sidebar */
         .sidebar {
@@ -52,17 +62,56 @@
             font-size: 36px;
             margin-left: 50px;
         }
-
     </style>
 </head>
 <body>
+    <h1>Make a robot that can spin something</h1>
+    <!-- Embedding the Scratch Project -->
+    <iframe src="https://scratch.mit.edu/projects/1058042423/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
 
-    <!-- Help buttons on the right side -->
-    <button class="help-button" onclick="openSidebar('uploadCode')">HELP: Uploading code to LEGO Spike Robot</button>
-    <button class="help-button" onclick="openSidebar('codingLego')">HELP: Coding in LEGO Spike</button>
-    <button class="help-button" onclick="openSidebar('codingScratch')">HELP: Coding in Scratch</button>
-    <button class="help-button" onclick="openSidebar('pluggingMotors')">HELP: Plugging in Motors</button>
-    <button class="help-button" onclick="openSidebar('legoProjects')">HELP: LEGO Spike Projects like this one</button>
+    <h2>SPIN</h2>
+    <p><strong>Context:</strong> Farm fence builder</p>
+    
+    <p><strong>Part one:</strong> Let’s talk about goals</p>
+    <ul>
+        <li>Why might digging be useful for a robot that helps on a farm?</li>
+        <li>How can we code a (Lego, mBot, other) robot to dig?</li>
+        <li>How can we build a robot that can dig?</li>
+    </ul>
+    
+    <p><strong>Part two:</strong> Let’s code to spin our Scratch sprite</p>
+    
+    <!-- Embedding the YouTube Video -->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/OchxUJBnOTs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <p>Watch this video to see how you can incorporate spinning into your scratch model.</p>
+    
+    <!-- Link to Scratch Tutorial -->
+    <p><a href="https://scratch.mit.edu/projects/editor/?tutorial=getStarted" target="_blank">https://scratch.mit.edu/projects/editor/?tutorial=getStarted</a></p>
+    
+    <!-- Image for Scratch Tutorial -->
+    <img src="diggerscratch.png" alt="Scratch Tutorial Image" width="600">
+
+    <h2>Part 3: Let’s build our bot</h2>
+    <p>Now that you’ve coded the spinning action, it’s time to bring your robot to life! Follow the instructions in the PDF below to build your digging robot.</p>
+    
+    <!-- Embedding the PDF -->
+    <embed src="Digger.pdf" width="600" height="500" type="application/pdf">
+    
+    <!-- Instruction Below PDF Viewer -->
+    <p>After building your bot, open the following URL: <a href="https://spike.legoeducation.com/prime/project" target="_blank">https://spike.legoeducation.com/prime/project</a>, input the code, and upload it to the digger bot. Plug the motor into port A.</p>
+    
+    <!-- Image for Building the Bot -->
+    <img src="diggerlego.png" alt="Digger Lego Image" width="600">
+
+    <!-- Download Link for LEGO Spike Prime Code -->
+    <p><a href="Digger.llsp3" download="Digger.llsp3">Download Spike Prime Code: Digger.llsp3</a></p>
+    
+    <!-- Help buttons on the right side, full height -->
+    <button id="button1" class="help-button" onclick="openSidebar('uploadCode')">HELP: Uploading code to LEGO Spike Robot</button>
+    <button id="button2" class="help-button" onclick="openSidebar('codingLego')">HELP: Coding in LEGO Spike</button>
+    <button id="button3" class="help-button" onclick="openSidebar('codingScratch')">HELP: Coding in Scratch</button>
+    <button id="button4" class="help-button" onclick="openSidebar('pluggingMotors')">HELP: Plugging in Motors</button>
+    <button id="button5" class="help-button" onclick="openSidebar('legoProjects')">HELP: LEGO Spike Projects like this one</button>
 
     <!-- Sidebar for Uploading Code -->
     <div id="uploadCode" class="sidebar">
