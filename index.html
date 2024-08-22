@@ -20,21 +20,12 @@
             margin-right: 20px;
         }
 
-        /* Style for the video and PDF to make them responsive */
-        iframe, embed {
-            width: calc(100% - 40px); /* Full width minus padding */
-            max-width: 100%;
-            height: auto;
+        /* Style for fixed-size video, PDF, and images */
+        iframe, embed, img {
+            width: 600px;
+            height: 400px;
             margin: 20px;
-            box-sizing: border-box;
-        }
-
-        img {
-            width: calc(100% - 40px);
-            max-width: 100%;
-            height: auto;
-            margin: 20px;
-            box-sizing: border-box;
+            display: block;
         }
 
         /* Style for the buttons */
@@ -96,37 +87,6 @@
             color: white;
             cursor: pointer;
         }
-
-        @media (max-width: 768px) {
-            /* Ensure buttons and sidebars adapt to smaller screens */
-            .help-button {
-                width: 150px;
-                font-size: 16px;
-                height: auto;
-            }
-
-            .sidebar {
-                padding-top: 40px;
-            }
-
-            .sidebar-content {
-                font-size: 16px;
-            }
-
-            h1, h2 {
-                margin-left: 10px;
-            }
-
-            p, ul, a {
-                margin-left: 10px;
-                margin-right: 10px;
-            }
-
-            iframe, embed, img {
-                width: calc(100% - 20px); /* Full width minus padding */
-                margin: 10px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -147,7 +107,7 @@
     <p><strong>Part two:</strong> Let’s code to spin our Scratch sprite</p>
     
     <!-- Embedding the YouTube Video -->
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/OchxUJBnOTs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <iframe width="600" height="400" src="https://www.youtube.com/embed/OchxUJBnOTs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <p>Watch this video to see how you can incorporate spinning into your scratch model.</p>
     
     <!-- Link to Scratch Tutorial -->
