@@ -284,17 +284,19 @@
     </div>
 
     <!-- Eighth Card -->
-    <div class="card" style="display: none;">
-        <h1>08/09</h1>
-        <h2>Upload the code to the bot</h2>
-        <iframe class="youtube-embed" src="https://www.youtube.com/embed/PLACEHOLDER" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <p>Watch this video to learn how to connect your computer or iPad to the Lego Spike robot, and test your code.</p>
-        <div class="nav-buttons">
-            <button onclick="prevPage()">&#9664; Prev</button>
-            <button onclick="window.location.href='https://spike.legoeducation.com/prime/project'">UPLOAD AND TEST CODE</button>
-            <button onclick="nextPage()">Next &#9654;</button>
-        </div>
+<div class="card" style="display: none;">
+    <h1>08/09</h1>
+    <h2>Upload the code to the bot</h2>
+    <iframe class="youtube-embed" src="https://www.youtube.com/embed/PLACEHOLDER" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <p>Watch this video to learn how to connect your computer or iPad to the Lego Spike robot, and test your code.</p>
+    <div class="nav-buttons">
+        <button onclick="prevPage()">&#9664; Prev</button>
+        <button id="uploadButton">UPLOAD AND TEST CODE</button>
+        <button onclick="nextPage()">Next &#9654;</button>
     </div>
+</div>
+
+
 
     <!-- Ninth Card -->
     <div class="card" style="display: none;">
@@ -346,6 +348,29 @@
     </div>
 
     <script>
+    // Detect if the device is an iPad
+    function isiPad() {
+        return /iPad|Macintosh/i.test(navigator.userAgent) && 'ontouchend' in document;
+    }
+
+    // Set the appropriate link for the upload button based on the device
+    function setUploadButtonLink() {
+        const uploadButton = document.getElementById('uploadButton');
+
+        if (isiPad()) {
+            uploadButton.onclick = function() {
+                window.location.href = 'legoedu-spike://';
+            };
+        } else {
+            uploadButton.onclick = function() {
+                window.location.href = 'https://spike.legoeducation.com/prime/lobby/';
+            };
+        }
+    }
+
+    // Call the function to set the correct link when the page loads
+    setUploadButtonLink();
+
         let currentPage = 0;
         const cards = document.querySelectorAll('.card');
 
