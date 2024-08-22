@@ -224,14 +224,23 @@
     </div>
 
     <script>
-        /* Function to open the sidebar and scroll to the top */
+        /* Function to close all sidebars */
+        function closeAllSidebars() {
+            var sidebars = document.querySelectorAll('.sidebar');
+            sidebars.forEach(function(sidebar) {
+                sidebar.style.width = '0';
+            });
+        }
+
+        /* Function to open a specific sidebar and close the others */
         function openSidebar(id) {
+            closeAllSidebars(); // Close any open sidebar
             var sidebar = document.getElementById(id);
             sidebar.style.width = "70%";
             sidebar.scrollTop = 0; // Scroll to top
         }
 
-        /* Function to close the sidebar */
+        /* Function to close a specific sidebar */
         function closeSidebar(id) {
             document.getElementById(id).style.width = "0";
         }
