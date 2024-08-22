@@ -348,9 +348,9 @@
     </div>
 
     <script>
-    // Detect if the device is an iPad
+   // Detect if the device is an iPad
     function isiPad() {
-        return /iPad|Macintosh/i.test(navigator.userAgent) && 'ontouchend' in document;
+        return /iPad/i.test(navigator.userAgent);
     }
 
     // Set the appropriate link for the upload button based on the device
@@ -359,11 +359,16 @@
 
         if (isiPad()) {
             uploadButton.onclick = function() {
+                // Attempt to open the LEGO Spike app
                 window.location.href = 'legoedu-spike://';
+                // If the app doesn't open, navigate to the regular site after a short delay
+                setTimeout(function() {
+                    window.location.href = 'https://spike.legoeducation.com/prime/project';
+                }, 500);
             };
         } else {
             uploadButton.onclick = function() {
-                window.location.href = 'https://spike.legoeducation.com/prime/lobby/';
+                window.location.href = 'https://spike.legoeducation.com/prime/project';
             };
         }
     }
