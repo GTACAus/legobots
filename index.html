@@ -5,6 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Embedded Scratch Project and YouTube Video with Help Sidebar</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            margin-left: 20px;
+        }
+
+        p, ul, a {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        /* Style for the video and PDF to make them responsive */
+        iframe, embed {
+            width: calc(100% - 40px); /* Full width minus padding */
+            max-width: 100%;
+            height: auto;
+            margin: 20px;
+            box-sizing: border-box;
+        }
+
+        img {
+            width: calc(100% - 40px);
+            max-width: 100%;
+            height: auto;
+            margin: 20px;
+            box-sizing: border-box;
+        }
+
         /* Style for the buttons */
         .help-button {
             position: fixed;
@@ -47,6 +79,7 @@
             padding-top: 60px;
             color: white;
             z-index: 1000;
+            overflow-y: auto;
         }
 
         .sidebar-content {
@@ -54,20 +87,52 @@
             font-size: 18px;
         }
 
-        /* Close button inside the sidebar */
+        /* Close button inside the sidebar (top left corner) */
         .closebtn {
             position: absolute;
             top: 0;
-            right: 25px;
+            left: 25px;
             font-size: 36px;
-            margin-left: 50px;
+            color: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            /* Ensure buttons and sidebars adapt to smaller screens */
+            .help-button {
+                width: 150px;
+                font-size: 16px;
+                height: auto;
+            }
+
+            .sidebar {
+                padding-top: 40px;
+            }
+
+            .sidebar-content {
+                font-size: 16px;
+            }
+
+            h1, h2 {
+                margin-left: 10px;
+            }
+
+            p, ul, a {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            iframe, embed, img {
+                width: calc(100% - 20px); /* Full width minus padding */
+                margin: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <h1>Make a robot that can spin something</h1>
     <!-- Embedding the Scratch Project -->
-    <iframe src="https://scratch.mit.edu/projects/1058042423/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+    <iframe src="https://scratch.mit.edu/projects/1058042423/embed" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
 
     <h2>SPIN</h2>
     <p><strong>Context:</strong> Farm fence builder</p>
@@ -89,19 +154,19 @@
     <p><a href="https://scratch.mit.edu/projects/editor/?tutorial=getStarted" target="_blank">https://scratch.mit.edu/projects/editor/?tutorial=getStarted</a></p>
     
     <!-- Image for Scratch Tutorial -->
-    <img src="diggerscratch.png" alt="Scratch Tutorial Image" width="600">
+    <img src="diggerscratch.png" alt="Scratch Tutorial Image">
 
     <h2>Part 3: Let’s build our bot</h2>
     <p>Now that you’ve coded the spinning action, it’s time to bring your robot to life! Follow the instructions in the PDF below to build your digging robot.</p>
     
     <!-- Embedding the PDF -->
-    <embed src="Digger.pdf" width="1000" height="1800" type="application/pdf">
+    <embed src="Digger.pdf" type="application/pdf">
     
     <!-- Instruction Below PDF Viewer -->
     <p>After building your bot, open the following URL: <a href="https://spike.legoeducation.com/prime/project" target="_blank">https://spike.legoeducation.com/prime/project</a>, input the code, and upload it to the digger bot. Plug the motor into port A.</p>
     
     <!-- Image for Building the Bot -->
-    <img src="diggerlego.png" alt="Digger Lego Image" width="600">
+    <img src="diggerlego.png" alt="Digger Lego Image">
 
     <!-- Download Link for LEGO Spike Prime Code -->
     <p><a href="Digger.llsp3" download="Digger.llsp3">Download Spike Prime Code: Digger.llsp3</a></p>
@@ -115,7 +180,7 @@
 
     <!-- Sidebar for Uploading Code -->
     <div id="uploadCode" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar('uploadCode')">&times;</a>
+        <span class="closebtn" onclick="closeSidebar('uploadCode')">&times;</span>
         <div class="sidebar-content">
             <h2>Uploading Code to LEGO Spike Robot</h2>
             <p>Instructions for uploading code to your LEGO Spike Robot...</p>
@@ -124,7 +189,7 @@
 
     <!-- Sidebar for Coding in LEGO Spike -->
     <div id="codingLego" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar('codingLego')">&times;</a>
+        <span class="closebtn" onclick="closeSidebar('codingLego')">&times;</span>
         <div class="sidebar-content">
             <h2>Coding in LEGO Spike</h2>
             <p>Instructions and tips for coding in LEGO Spike...</p>
@@ -133,7 +198,7 @@
 
     <!-- Sidebar for Coding in Scratch -->
     <div id="codingScratch" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar('codingScratch')">&times;</a>
+        <span class="closebtn" onclick="closeSidebar('codingScratch')">&times;</span>
         <div class="sidebar-content">
             <h2>Coding in Scratch</h2>
             <p>Instructions and tips for coding in Scratch...</p>
@@ -142,7 +207,7 @@
 
     <!-- Sidebar for Plugging in Motors -->
     <div id="pluggingMotors" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar('pluggingMotors')">&times;</a>
+        <span class="closebtn" onclick="closeSidebar('pluggingMotors')">&times;</span>
         <div class="sidebar-content">
             <h2>Plugging in Motors</h2>
             <p>Guide on how to plug in motors to your LEGO Spike Robot...</p>
@@ -151,7 +216,7 @@
 
     <!-- Sidebar for LEGO Spike Projects like this one -->
     <div id="legoProjects" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar('legoProjects')">&times;</a>
+        <span class="closebtn" onclick="closeSidebar('legoProjects')">&times;</span>
         <div class="sidebar-content">
             <h2>LEGO Spike Projects like this one</h2>
             <p>Explore more LEGO Spike projects similar to this one...</p>
@@ -159,9 +224,11 @@
     </div>
 
     <script>
-        /* Function to open the sidebar */
+        /* Function to open the sidebar and scroll to the top */
         function openSidebar(id) {
-            document.getElementById(id).style.width = "70%";
+            var sidebar = document.getElementById(id);
+            sidebar.style.width = "70%";
+            sidebar.scrollTop = 0; // Scroll to top
         }
 
         /* Function to close the sidebar */
