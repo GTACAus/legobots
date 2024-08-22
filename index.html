@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -343,9 +344,10 @@
     </div>
     <!-- PDF Overlay -->
     <div id="pdfOverlay" class="pdf-overlay" style="display: none;">
-        <iframe src="https://docs.google.com/viewer?url=https://gtacaus.github.io/legobots/Digger.pdf&embedded=true" frameborder="0"></iframe>
-        <button class="close-button" onclick="closePDF()">X</button>
-    </div>
+    <embed src="https://gtacaus.github.io/legobots/Digger.pdf" type="application/pdf" width="80%" height="80%">
+    <button class="close-button" onclick="closePDF()">X</button>
+</div>
+
 
     <script>
    // Detect if the device is an iPad
@@ -441,12 +443,12 @@
         }
 
         function showPDF() {
-            document.getElementById('pdfOverlay').style.display = 'flex';
-        }
+    document.getElementById('pdfOverlay').style.display = 'flex';
+}
 
-        function closePDF() {
-            document.getElementById('pdfOverlay').style.display = 'none';
-        }
+function closePDF() {
+    document.getElementById('pdfOverlay').style.display = 'none';
+}
 
         generateWordCloud();
 	
