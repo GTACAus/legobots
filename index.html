@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robotics Projects - Make a Difference</title>
+    <title>Robotics Project - Bare-Mini-Bot for Digging</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -13,14 +13,15 @@
             color: #333;
         }
 
-        h1, h2, p {
-            text-align: center;
+        h1, h2, h3 {
+            text-align: left;
+            margin-left: 20px;
             color: #202124;
-            margin: 20px;
         }
 
         p, ul, a {
-            margin: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
             font-size: 18px;
             line-height: 1.6;
         }
@@ -35,6 +36,11 @@
             margin-top: 30px;
         }
 
+        h3 {
+            font-size: 24px;
+            margin-top: 25px;
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
@@ -45,10 +51,29 @@
         }
 
         /* Style for the video, PDF, and images */
-        iframe, embed, img {
+        iframe {
             display: block;
             margin: 20px auto;
-            max-width: 100%;
+            max-width: 80%;
+            height: auto;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        embed {
+            width: 1800px; /* 3 times the original width */
+            height: 1200px; /* 3 times the original height */
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 80%;
+            height: auto;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
@@ -143,39 +168,30 @@
     </style>
 </head>
 <body>
-    <h1>Make a robot that can spin something</h1>
-    <!-- Embedding the Scratch Project -->
-    <iframe src="https://scratch.mit.edu/projects/1058042423/embed" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
+    <h1>Robotics Project: Bare-Mini-Bot for Digging</h1>
 
-    <h2>SPIN</h2>
+    <h2>Part One: Let’s Talk About Goals</h2>
     <p><strong>Context:</strong> Farm fence builder</p>
-    
-    <p><strong>Part one:</strong> Let’s talk about goals</p>
     <ul>
         <li>Why might digging be useful for a robot that helps on a farm?</li>
         <li>How can we code a (Lego, mBot, other) robot to dig?</li>
         <li>How can we build a robot that can dig?</li>
     </ul>
-    
-    <p><strong>Part two:</strong> Let’s code to spin our Scratch sprite</p>
-    
-    <!-- Embedding the YouTube Video -->
-    <iframe width="1200" height="800" src="https://www.youtube.com/embed/OchxUJBnOTs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    <p>Watch this video to see how you can incorporate spinning into your scratch model.</p>
-    
-    <!-- Link to Scratch Tutorial -->
-    <p><a href="https://scratch.mit.edu/projects/editor/?tutorial=getStarted" target="_blank">https://scratch.mit.edu/projects/editor/?tutorial=getStarted</a></p>
-    
-    <!-- Image for Scratch Tutorial -->
-    <img src="diggerscratch.png" alt="Scratch Tutorial Image">
 
-    <h2>Part 3: Let’s build our bot</h2>
-    <p>Now that you’ve coded the spinning action, it’s time to bring your robot to life! Follow the instructions in the PDF below to build your digging robot.</p>
+    <h2>Part Two: Coding a Digging Action in Scratch</h2>
+    <p>Students code a sprite in Scratch to rotate around in circles, like a drill might to dig a hole for a fence post. They use an instructional video that breaks down the code, and steps them through blocking it together and testing it.</p>
     
-    <!-- Embedding the PDF (twice the original size) -->
+    <!-- Embedding the Scratch Project -->
+    <iframe src="https://scratch.mit.edu/projects/1058042423/embed" width="1000" height="800" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
+
+    <p>If you need help with Scratch coding, please refer to the sidebar menu for assistance.</p>
+
+    <h2>Part Three: Building the Lego Bot</h2>
+    <p>Next, students build a simple Lego bot with the job of digging holes. The PDF instructions are for this purpose. Once built, they need to plug in their motors and upload code to make the drill spin.</p>
+    
+    <!-- Embedding the PDF (now 3 times the original size) -->
     <embed src="Digger.pdf" type="application/pdf">
-    
-    <!-- Instruction Below PDF Viewer -->
+
     <p>After building your bot, open the following URL: <a href="https://spike.legoeducation.com/prime/project" target="_blank">https://spike.legoeducation.com/prime/project</a>, input the code, and upload it to the digger bot. Plug the motor into port A.</p>
     
     <!-- Image for Building the Bot -->
