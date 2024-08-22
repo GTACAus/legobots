@@ -443,7 +443,13 @@
         }
 
         function showPDF() {
-    document.getElementById('pdfOverlay').style.display = 'flex';
+    if (isiPad()) {
+        // Open the PDF in a new tab on iPad
+        window.open('https://gtacaus.github.io/legobots/Digger.pdf', '_blank');
+    } else {
+        // Display the PDF overlay for other devices
+        document.getElementById('pdfOverlay').style.display = 'flex';
+    }
 }
 
 function closePDF() {
