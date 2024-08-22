@@ -1,51 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Scratch Project and YouTube Video with Context</title>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Sidebar Example</title>
+    <style>
+        /* Style for the buttons */
+        .help-button {
+            position: fixed;
+            right: 0;
+            width: 200px;
+            padding: 15px;
+            background-color: blue;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            text-align: left;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .help-button:hover {
+            background-color: darkblue;
+        }
+
+        /* Style for the sidebar */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            right: 0;
+            top: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            color: white;
+            z-index: 1000;
+        }
+
+        .sidebar-content {
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        /* Close button inside the sidebar */
+        .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>Make a robot that can spin something</h1>
-    <!-- Embedding the Scratch Project -->
-    <iframe src="https://scratch.mit.edu/projects/1058042423/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
 
-    <h2>SPIN</h2>
-    <p><strong>Context:</strong> Farm fence builder</p>
-    
-    <p><strong>Part one:</strong> Let’s talk about goals</p>
-    <ul>
-        <li>Why might digging be useful for a robot that helps on a farm?</li>
-        <li>How can we code a (Lego, mBot, other) robot to dig?</li>
-        <li>How can we build a robot that can dig?</li>
-    </ul>
-    
-    <p><strong>Part two:</strong> Let’s code to spin our Scratch sprite</p>
-    
-    <!-- Embedding the YouTube Video -->
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/OchxUJBnOTs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    <p>Watch this video to see how you can incorporate spinning into your scratch model.</p>
-    
-    <!-- Link to Scratch Tutorial -->
-    <p><a href="https://scratch.mit.edu/projects/editor/?tutorial=getStarted" target="_blank">https://scratch.mit.edu/projects/editor/?tutorial=getStarted</a></p>
-    
-    <!-- Image for Scratch Tutorial -->
-    <img src="diggerscratch.png" alt="Scratch Tutorial Image" width="600">
+    <!-- Help buttons on the right side -->
+    <button class="help-button" onclick="openSidebar('uploadCode')">HELP: Uploading code to LEGO Spike Robot</button>
+    <button class="help-button" onclick="openSidebar('codingLego')">HELP: Coding in LEGO Spike</button>
+    <button class="help-button" onclick="openSidebar('codingScratch')">HELP: Coding in Scratch</button>
+    <button class="help-button" onclick="openSidebar('pluggingMotors')">HELP: Plugging in Motors</button>
+    <button class="help-button" onclick="openSidebar('legoProjects')">HELP: LEGO Spike Projects like this one</button>
 
-    <h2>Part 3: Let’s build our bot</h2>
-    <p>Now that you’ve coded the spinning action, it’s time to bring your robot to life! Follow the instructions in the PDF below to build your digging robot.</p>
-    
-    <!-- Embedding the PDF -->
-    <embed src="Digger.pdf" width="600" height="500" type="application/pdf">
-    
-    <!-- Instruction Below PDF Viewer -->
-    <p>After building your bot, open the following URL: <a href="https://spike.legoeducation.com/prime/project" target="_blank">https://spike.legoeducation.com/prime/project</a>, input the code, and upload it to the digger bot. Plug the motor into port A.</p>
-    
-    <!-- Image for Building the Bot -->
-    <img src="diggerlego.png" alt="Digger Lego Image" width="600">
+    <!-- Sidebar for Uploading Code -->
+    <div id="uploadCode" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar('uploadCode')">&times;</a>
+        <div class="sidebar-content">
+            <h2>Uploading Code to LEGO Spike Robot</h2>
+            <p>Instructions for uploading code to your LEGO Spike Robot...</p>
+        </div>
+    </div>
 
-    <!-- Download Link for LEGO Spike Prime Code -->
-    <p><a href="Digger.llsp3" download="Digger.llsp3">Download Spike Prime Code: Digger.llsp3</a></p>
-    
+    <!-- Sidebar for Coding in LEGO Spike -->
+    <div id="codingLego" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar('codingLego')">&times;</a>
+        <div class="sidebar-content">
+            <h2>Coding in LEGO Spike</h2>
+            <p>Instructions and tips for coding in LEGO Spike...</p>
+        </div>
+    </div>
+
+    <!-- Sidebar for Coding in Scratch -->
+    <div id="codingScratch" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar('codingScratch')">&times;</a>
+        <div class="sidebar-content">
+            <h2>Coding in Scratch</h2>
+            <p>Instructions and tips for coding in Scratch...</p>
+        </div>
+    </div>
+
+    <!-- Sidebar for Plugging in Motors -->
+    <div id="pluggingMotors" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar('pluggingMotors')">&times;</a>
+        <div class="sidebar-content">
+            <h2>Plugging in Motors</h2>
+            <p>Guide on how to plug in motors to your LEGO Spike Robot...</p>
+        </div>
+    </div>
+
+    <!-- Sidebar for LEGO Spike Projects like this one -->
+    <div id="legoProjects" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar('legoProjects')">&times;</a>
+        <div class="sidebar-content">
+            <h2>LEGO Spike Projects like this one</h2>
+            <p>Explore more LEGO Spike projects similar to this one...</p>
+        </div>
+    </div>
+
+    <script>
+        /* Function to open the sidebar */
+        function openSidebar(id) {
+            document.getElementById(id).style.width = "70%";
+        }
+
+        /* Function to close the sidebar */
+        function closeSidebar(id) {
+            document.getElementById(id).style.width = "0";
+        }
+    </script>
+
 </body>
 </html>
