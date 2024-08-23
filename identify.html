@@ -192,7 +192,7 @@
         <h2>What kind of rubbish is this?</h2>
         <iframe class="scratch-embed" src="https://scratch.mit.edu/projects/1058501905/embed" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
         <p><strong>Click the flag to get the Scratch Cat to sort rubbish sustainably.</strong></p>
-        <p>Let's start with something fun—making the Scratch Cat figure out where the different rubbish goes! Click the flag to see it in action. You'll soon be using the same code to make a real robot identify what can be recyled or put in the garden!</p>
+        <p>Let's start with something fun—making the Scratch Cat figure out where the different rubbish goes! Click the flag to see it in action. You'll soon be using the same code to make a real robot identify what can be recycled or put in the garden!</p>
         <div class="nav-buttons">
             <button onclick="nextPage()">Next &#9654;</button>
         </div>
@@ -363,12 +363,12 @@
                     window.location.href = 'legoedu-spike://';
                     // If the app doesn't open, navigate to the regular site after a short delay
                     setTimeout(function() {
-                        window.location.href = 'https://apps.apple.com/us/app/spike-lego-education/id6443545905';
-                    }, 500);
+            window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
+        }, 500);
                 };
             } else {
                 uploadButton.onclick = function() {
-                    window.location.href = 'https://spike.legoeducation.com/prime/lobby/';
+                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
                 };
             }
         }
