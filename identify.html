@@ -202,7 +202,7 @@
     <div class="card" style="display: none;">
         <h1>02/10</h1>
         <h2>Sustainably sort</h2> 
-        <p>Waste centre staff sometimes need to get sort rubbish when people put things in the wrong bins. What if we could build a robot to do it for them? Share your ideas on how a robot that could identify different kinds of waste could help at a recylcing centre. Type your thoughts below and be part of our word cloud!</p>
+        <p>Waste centre staff sometimes need to get sort rubbish when people put things in the wrong bins. What if we could build a robot to do it for them? Share your ideas on how a robot that could identify different kinds of waste could help at a recycling centre. Type your thoughts below and be part of our word cloud!</p>
 
         <!-- Word Cloud Image Placeholder -->
         <img id="wordCloud" src="" alt="Word Cloud will appear here">
@@ -233,7 +233,7 @@
     <div class="card" style="display: none;">
         <h1>04/10</h1>
         <h2>Time to Code!</h2>
-        <img src="https://gtacaus.github.io/legobots/scratchint.png" alt="Scratch Interface">
+        <img src="https://gtacaus.github.io/legobots/identifyscratch.png" alt="Scratch Interface">
         <p>Ready to give it a try? Click the CODE button to start coding the Scratch Cat to spin. Soon, you’ll be doing the same with your robot!</p>
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
@@ -399,7 +399,7 @@
 
         async function generateWordCloud() {
             try {
-                const githubUrl = 'https://gtacaus.github.io/legobots/wordcloud.txt';
+                const githubUrl = 'https://gtacaus.github.io/legobots/wordcloudidentify.txt';
                 const response = await fetch(githubUrl);
 
                 if (!response.ok) {
