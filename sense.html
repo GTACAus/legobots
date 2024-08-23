@@ -220,7 +220,7 @@
     <!-- Third Card -->
     <div class="card" style="display: none;">
         <h1>03/10</h1>
-        <h2>Code to Spin</h2>
+        <h2>Code to turn off when close to a wall</h2>
         <iframe class="youtube-embed" src="https://www.youtube.com/embed/PLACEHOLDER" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <p>Now, let’s dive into coding! If you can make the Scratch Cat detect walls, you can get a lego distance sensor to do it too. Watch this video to learn how to code the cat to identify when it might crash.</p>
         <div class="nav-buttons">
@@ -262,7 +262,7 @@
         <h1>06/10</h1>
         <h2>Build Your Ambulance Bot!</h2>
         <img src="https://gtacaus.github.io/legobots/sensebot.png" alt="Ambulance Bot" style="width: 60%; height: auto; margin-top: 10px;">
-        <p>Now that you’ve got the code, it’s time to build! Follow these instructions to create a robot with a distance sensor that can sense people and walls.</p>
+        <p>Now that you’ve got the code, it’s time to build! Follow these instructions to create a robot with a distance sensor that can stop if it senses people and walls in its path.</p>
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
             <button onclick="showPDF()">BUILD</button>
@@ -302,20 +302,20 @@
         <h2>Robots for a Better World</h2><br><br>
         <div class="bot-section">
             <strong><span style="color:green;">Farm assistant</span></strong>
-            <span>Identify many colours of food - <em>Modify the code for the same build.</em></span>
-            <p>Can you modify your code to make your robot sort fruit and vegetables with more colours than red, green and yellow?</p>
+            <span>Save battery - <em>Modify the code for the same build.</em></span>
+            <p>Can you modify your code to make your robot activate when it gets close to some crops to collect, or some tall grass to cut?</p>
         </div>
 
         <div class="bot-section">
             <strong><span style="color:orange;">Helper Bot</span></strong>
-            <span>Medicine dispenser- <em>Modify the code for the same build.</em></span>
-            <p>Scan different coloured medicines at the hospital and identify what they can be used to treat.</p>
+            <span>Narrow path navigator- <em>Modify the code for the same build.</em></span>
+            <p>Change the code so that your ambulance can get closer to walls on more narrow roads.</p>
         </div>
 
         <div class="bot-section">
-            <strong><span style="color:red;">Sustainable recycler</span></strong>
-            <span>Put the rubbish in the right bin- <em>Modify the build.</em></span>
-            <p>Your robot can identify different types of rubbish. Can you modify your build to store different types of waste in different places or piles?</p>
+            <strong><span style="color:red;">Mobilise it!</span></strong>
+            <span>Give your ambulance motor power- <em>Modify the build and the code.</em></span>
+            <p>Can you add motors to your bot and get it to move forward?  Can you still detect and avoid hitting obstacles?</p>
         </div>
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button><button onclick="nextPage()">Next &#9654;</button>
@@ -327,9 +327,9 @@
         <h1>10/10</h1>
         <h2>More LEGO Spike Projects</h2>
         <p>Explore other cool projects like this one. From creative building to fun coding, there’s always more to learn with LEGO Spike!</p>
-        <h3>Help!</h3>
-        <a href="https://spike.legoeducation.com/prime/unit-plans/bltdfae10d779620d2b/lesson-detail/blt787bc3ee9c9023aa">
-            <img src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/blt8637a51c69a4ea6b/60e564960f2b3833d0f69fad/lesson-header.png" alt="Help!" style="width: 38%;">
+        <h3>Out of Order</h3>
+        <a href="https://spike.legoeducation.com/prime/unit-plans/blt7e6f02fb2c257cfc/lesson-detail/bltbe84637e683e06be">
+            <img src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/blt6e346443e3c6f78c/61093b1d365a7d358c6bdace/lesson-header.png" alt="Help!" style="width: 38%;">
 
         </a>
         <h3>Place your order</h3>
@@ -343,7 +343,7 @@
 
     <!-- PDF Overlay -->
     <div id="pdfOverlay" class="pdf-overlay" style="display: none;">
-        <embed src="https://gtacaus.github.io/legobots/identify.pdf" type="application/pdf" width="80%" height="80%">
+        <embed src="https://gtacaus.github.io/legobots/sense.pdf" type="application/pdf" width="80%" height="80%">
         <button class="close-button" onclick="closePDF()">X</button>
     </div>
 
@@ -399,7 +399,7 @@
 
         async function generateWordCloud() {
             try {
-                const githubUrl = 'https://gtacaus.github.io/legobots/wordcloudidentify.txt';
+                const githubUrl = 'https://gtacaus.github.io/legobots/wordcloudsense.txt';
                 const response = await fetch(githubUrl);
 
                 if (!response.ok) {
@@ -443,10 +443,10 @@
         function showPDF() {
             if (isiPad()) {
                 // Open the PDF in a new tab on iPad
-                window.open('https://gtacaus.github.io/legobots/identify.pdf', '_blank');
+                window.open('https://gtacaus.github.io/legobots/sense.pdf', '_blank');
             } else {
                 // Display the PDF overlay for other devices
-                window.open('https://gtacaus.github.io/legobots/identify.pdf', '_blank');
+                window.open('https://gtacaus.github.io/legobots/sense.pdf', '_blank');
             }
         }
 
