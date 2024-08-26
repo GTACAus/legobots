@@ -46,6 +46,7 @@
             height: auto;
             margin-bottom: 10px;
             cursor: pointer;
+            background-color: white;
         }
 
         .card h2 {
@@ -62,15 +63,50 @@
             border-radius: 25px;
             font-size: 1em;
             margin-top: 10px;
+            cursor: pointer;
         }
 
         .card a:hover {
             background-color: #0056b3;
         }
 
+        .popout {
+            position: absolute;
+            top: 50%;
+            left: 110%;
+            transform: translateY(-50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            display: none;
+            width: 250px;
+            text-align: left;
+        }
+
+        .popout .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .card a.popout-trigger {
+            position: relative;
+        }
+
         @media (max-width: 768px) {
             .grid-container {
                 grid-template-columns: 1fr;
+            }
+
+            .popout {
+                left: 100%;
+                width: 80%;
             }
         }
 
@@ -84,52 +120,93 @@
 <body>
     <div class="grid-container">
         <div class="card">
-            <a href="alert.html">
+            <a class="popout-trigger">
                 <img src="alert.jpg" alt="Make and Code a Button to Call for Help">
                 <h2>Make and Code a "Help!" Button</h2>
             </a>
-            <a href="alert.html">Learn More</a>
+            <a class="popout-trigger">Learn More</a>
+            <div class="popout">
+                <span class="close" onclick="this.parentElement.style.display='none';">X</span>
+                🚨 Alert! Make a button that a patient in a hospital could press to call a doctor or a nurse.
+            </div>
         </div>
 
         <div class="card">
-            <a href="spin.html">
+            <a class="popout-trigger">
                 <img src="digbot.jpg" alt="Build and Code a Robot to Dig Holes">
                 <h2>Build and Code a Digging Robot</h2>
             </a>
-            <a href="spin.html">Learn More</a>
+            <a class="popout-trigger">Learn More</a>
+            <div class="popout">
+                <span class="close" onclick="this.parentElement.style.display='none';">X</span>
+                🌲 Spin! Build a robot to help a farmer dig holes for all kinds of purposes.
+            </div>
         </div>
 
         <div class="card">
-            <a href="identify.html">
+            <a class="popout-trigger">
                 <img src="recycler.jpg" alt="Make a Robot that Identifies Types of Rubbish for Recycling">
                 <h2>Make a Robotic Rubbish Recycler</h2>
             </a>
-            <a href="identify.html">Learn More</a>
+            <a class="popout-trigger">Learn More</a>
+            <div class="popout">
+                <span class="close" onclick="this.parentElement.style.display='none';">X</span>
+                👓 Identify. Help a recycling bot to tell different types of rubbish apart.
+            </div>
         </div>
 
         <div class="card">
-            <a href="sense.html">
+            <a class="popout-trigger">
                 <img src="sensebot.png" alt="Make a Robot that Detects and Avoids Walls and People">
                 <h2>Help a Robot to Detect and Avoid Hazards</h2>
             </a>
-            <a href="sense.html">Learn More</a>
+            <a class="popout-trigger">Learn More</a>
+            <div class="popout">
+                <span class="close" onclick="this.parentElement.style.display='none';">X</span>
+                🏎️ Sense. Stay safe! Help a robot to detect people and walls so that it doesn't crash into them.
+            </div>
         </div>
 
         <div class="card">
-            <a href="https://spike.legoeducation.com/prime/start">
+            <a href="https://spike.legoeducation.com/prime/start" class="popout-trigger">
                 <img src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/bltebc653299ecc2149/60d1b8edb930a53616fa4635/UTAL1_app_thumbnail.jpg" alt="LEGO Spike Robotics Tutorials">
                 <h2>LEGO Spike Robotics Parts: how to use them</h2>
             </a>
-            <a href="https://spike.legoeducation.com/prime/start">Learn More</a>
+            <a class="popout-trigger">Learn More</a>
+            <div class="popout">
+                <span class="close" onclick="this.parentElement.style.display='none';">X</span>
+                🧱 Follow a few sets of instructions to get to know the different lego robotics parts.
+            </div>
         </div>
 
         <div class="card">
-            <a href="move.html">
+            <a class="popout-trigger">
                 <img src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/blt482828b894f6f4bc/60e565227df6873288cd88ab/lesson-header.png" alt="Make a Robot that Moves">
                 <h2>Make a Robot that can Walk</h2>
             </a>
-            <a href="move.html">Learn More</a>
+            <a class="popout-trigger">Learn More</a>
+            <div class="popout">
+                <span class="close" onclick="this.parentElement.style.display='none';">X</span>
+                Create a robot that can move around between places. An easy and fun place to start!
+            </div>
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.popout-trigger').forEach(function(trigger) {
+            trigger.addEventListener('click', function(event) {
+                event.preventDefault();
+                var popout = this.nextElementSibling;
+                if (popout.style.display === 'block') {
+                    popout.style.display = 'none';
+                } else {
+                    document.querySelectorAll('.popout').forEach(function(pop) {
+                        pop.style.display = 'none';
+                    });
+                    popout.style.display = 'block';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
