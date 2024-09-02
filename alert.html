@@ -375,7 +375,7 @@
         function isiPad() {
             return /iPad/i.test(navigator.userAgent);
         }
-        
+
         // Set the appropriate link for the upload button based on the device
         function setUploadButtonLink() {
             const uploadButton = document.getElementById('uploadButton');
@@ -395,6 +395,9 @@
                 };
             }
         }
+
+        // Call the function to set the correct link when the page loads
+        setUploadButtonLink();
         
         function showPage(index) {
             cards[currentPage].classList.remove('active');
