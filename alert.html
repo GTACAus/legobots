@@ -214,7 +214,7 @@
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
             <div class="input-container">
-                <input type="text" id="wordInput" class="text-input" placeholder="Type your idea..."> <!-- Added ID here -->
+                <input type="text" id="wordInput" class="text-input" placeholder="Type your idea...">
                 <button class="submit-button" onclick="submitWord()">Submit</button>
             </div>
             <button onclick="nextPage()">Next &#9654;</button>
@@ -437,6 +437,56 @@
             }
         }
 
+        function checkContent() {
+            fetch(apiUrl, {
+                headers: {
+                    'Authorization': `token ${token}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const fileContent = data.files[fileName]?.content.trim();
+                console.log('Fetched content:', fileContent);
+
+                // Submit the content to generate the word cloud
+                return fetch('https://quickchart.io/wordcloud', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        format: 'png',
+                        width: 600,
+                        height: 400,
+                        fontScale: 15,
+                        scale: 'linear',
+                        removeStopwords: true,
+                        minWordLength: 4,
+                        text: fileContent
+                    })
+                });
+            })
+            .then(wordCloudResponse => {
+                if (!wordCloudResponse.ok) {
+                    throw new Error('Failed to generate word cloud');
+                }
+                return wordCloudResponse.blob();
+            })
+            .then(wordCloudBlob => {
+                const wordCloudUrl = URL.createObjectURL(wordCloudBlob);
+                document.getElementById('wordCloud').src = wordCloudUrl;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('wordCloud').alt = 'Failed to load word cloud';
+            });
+        }
+
         async function generateWordCloud() {
             try {
                 const githubUrl = 'https://gist.githubusercontent.com/GTACAus/9cf36ca5a6f29a7cce9a12af1cbf0651/raw/5c3f51250043111974c2eb5469988da7ce86a07c/wordcloudalert.txt';
@@ -494,7 +544,8 @@
             document.getElementById('pdfOverlay').style.display = 'none';
         }
 
-        generateWordCloud();
+        // Call checkContent to fetch content and generate word cloud on page load
+        checkContent();
     </script>
 </body>
 </html>
