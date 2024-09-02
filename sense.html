@@ -418,7 +418,7 @@
         }
 
         async function fetchProfanityList() {
-            const profanityResponse = await fetch('https://raw.githubusercontent.com/coffee-and-fun/google-profanity-words/main/data/en.txt');
+            const profanityResponse = await fetch('boogeraids.txt');
             if (!profanityResponse.ok) {
                 throw new Error('Failed to fetch the profanity list');
             }
@@ -436,7 +436,7 @@
 
         async function generateWordCloud(profanityList) {
             try {
-                const githubUrl = 'https://gist.githubusercontent.com/GTACAus/73454f6e93fad288f79d1bb43711132e/raw/wordcloudsense.txt';
+                const githubUrl = 'boogeraids.txt';
                 const response = await fetch(githubUrl);
 
                 if (!response.ok) {
