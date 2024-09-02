@@ -515,48 +515,69 @@
             });
         }
 
+        
         async function generateWordCloud() {
-            try {
-                const githubUrl = 'https://gist.githubusercontent.com/GTACAus/9cf36ca5a6f29a7cce9a12af1cbf0651/raw/wordcloudalert.txt';
-                const response = await fetch(githubUrl);
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch the text content');
-                }
-
-                const article = await response.text();
-
-                const wordCloudResponse = await fetch('https://quickchart.io/wordcloud', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        format: 'png',
-                        width: 600,
-                        height: 400,
-                        fontScale: 25,
-                        scale: 'linear',
-                        removeStopwords: true,
-                        minWordLength: 4,
-                        text: article
-                    })
-                });
-
-                if (!wordCloudResponse.ok) {
-                    throw new Error('Failed to generate word cloud');
-                }
-
-                const wordCloudBlob = await wordCloudResponse.blob();
-                const wordCloudUrl = URL.createObjectURL(wordCloudBlob);
-
-                document.getElementById('wordCloud').src = wordCloudUrl;
-
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('wordCloud').alt = 'Failed to load word cloud';
-            }
+    try {
+        // Fetch the list of profane words
+        const profanityResponse = await fetch('https://raw.githubusercontent.com/coffee-and-fun/google-profanity-words/main/data/en.txt');
+        if (!profanityResponse.ok) {
+            throw new Error('Failed to fetch the profanity list');
         }
+        const profanityText = await profanityResponse.text();
+        const profanityList = profanityText.split('\n').map(word => word.trim().toLowerCase());
+
+        // Fetch the words for the word cloud
+        const githubUrl = 'https://gist.githubusercontent.com/GTACAus/9cf36ca5a6f29a7cce9a12af1cbf0651/raw/wordcloudalert.txt';
+        const response = await fetch(githubUrl);
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch the text content');
+        }
+
+        let article = await response.text();
+
+        // Filter out any profane words
+        const words = article.split(/\s+/).filter(word => {
+            const lowerCaseWord = word.trim().toLowerCase();
+            return !profanityList.includes(lowerCaseWord);
+        });
+
+        // Rejoin the filtered words into a single string for the word cloud
+        const filteredText = words.join(' ');
+
+        // Generate the word cloud with the filtered words
+        const wordCloudResponse = await fetch('https://quickchart.io/wordcloud', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                format: 'png',
+                width: 600,
+                height: 400,
+                fontScale: 25,
+                scale: 'linear',
+                removeStopwords: true,
+                minWordLength: 4,
+                text: filteredText
+            })
+        });
+
+        if (!wordCloudResponse.ok) {
+            throw new Error('Failed to generate word cloud');
+        }
+
+        const wordCloudBlob = await wordCloudResponse.blob();
+        const wordCloudUrl = URL.createObjectURL(wordCloudBlob);
+
+        document.getElementById('wordCloud').src = wordCloudUrl;
+
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('wordCloud').alt = 'Failed to load word cloud';
+    }
+}
+
 
         function showPDF() {
             if (isiPad()) {
