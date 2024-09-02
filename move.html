@@ -27,11 +27,11 @@
             padding: 15px;
             text-align: center;
             height: 800px;
-            display: none; /* Changed to hidden by default */
+            display: none;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
-            padding-bottom: 70px; /* Added padding to ensure space for navigation */
+            padding-bottom: 70px;
         }
 
         .card h1 {
@@ -78,12 +78,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative; /* Changed from absolute to relative */
+            position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             padding: 0 15px;
-            margin-top: 20px; /* Add margin to create space between content and buttons */
+            margin-top: 20px;
         }
 
         .nav-buttons button {
@@ -187,7 +187,7 @@
 <body>
 
     <!-- First Card -->
-    <div class="card" style="display: block;"> <!-- Display the first card by default -->
+    <div class="card" style="display: block;">
         <h1>01/10</h1>
         <h2>Get a move on!</h2>
         <iframe class="scratch-embed" src="https://scratch.mit.edu/projects/1059382746/embed" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
@@ -201,7 +201,6 @@
     <!-- Second Card -->
     <div class="card">
         <h1>02/10</h1>
-        <h2></h2> 
         <p>Giving robots the power to move around allows them to help with all kinds of tasks. Share your ideas on tasks that a mobile robot could help with. Type your thoughts below and be part of our word cloud!</p>
 
         <!-- Word Cloud Image Placeholder -->
@@ -319,34 +318,6 @@
     </div>
 
     <script>
-        // Detect if the device is an iPad
-        function isiPad() {
-            return /iPad/i.test(navigator.userAgent);
-        }
-
-        // Set the appropriate link for the upload button based on the device
-        function setUploadButtonLink() {
-            const uploadButton = document.getElementById('uploadButton');
-
-            if (isiPad()) {
-                uploadButton.onclick = function() {
-                    // Attempt to open the LEGO Spike app
-                    window.location.href = 'legoedu-spike://';
-                    // If the app doesn't open, navigate to the regular site after a short delay
-                    setTimeout(function() {
-                        window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-                    }, 500);
-                };
-            } else {
-                uploadButton.onclick = function() {
-                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-                };
-            }
-        }
-
-        // Call the function to set the correct link when the page loads
-        setUploadButtonLink();
-
         let currentPage = 0;
         const cards = document.querySelectorAll('.card');
 
@@ -367,6 +338,11 @@
                 showPage(currentPage - 1);
             }
         }
+
+        // Show the first card on load
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage(0);
+        });
 
         async function generateWordCloud() {
             try {
@@ -412,23 +388,14 @@
         }
 
         function showPDF() {
-            if (isiPad()) {
-                // Open the PDF in a new tab on iPad
-                window.open('https://gtacaus.github.io/legobots/alert.pdf', '_blank');
-            } else {
-                // Display the PDF overlay for other devices
-                window.open('https://gtacaus.github.io/legobots/alert.pdf', '_blank');
-            }
+            const pdfOverlay = document.getElementById('pdfOverlay');
+            pdfOverlay.style.display = 'flex';
         }
 
         function closePDF() {
-            document.getElementById('pdfOverlay').style.display = 'none';
+            const pdfOverlay = document.getElementById('pdfOverlay');
+            pdfOverlay.style.display = 'none';
         }
-
-        // Show the first card on load
-        document.addEventListener('DOMContentLoaded', () => {
-            showPage(0);
-        });
 
         generateWordCloud();
     </script>
