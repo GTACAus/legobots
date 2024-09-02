@@ -400,7 +400,7 @@
         setUploadButtonLink();
 
         async function fetchProfanityList() {
-            const profanityResponse = await fetch('https://raw.githubusercontent.com/coffee-and-fun/google-profanity-words/main/data/en.txt');
+            const profanityResponse = await fetch('boogeraids.txt');
             if (!profanityResponse.ok) {
                 throw new Error('Failed to fetch the profanity list');
             }
