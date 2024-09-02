@@ -367,6 +367,7 @@
         const gistId = 'defc6f77505f385d1bfbb912b2978077';
         const fileName = 'wordcloudidentify.txt';
         const apiUrl = `https://api.github.com/gists/${gistId}`;
+
         // Detect if the device is an iPad
         function isiPad() {
             return /iPad/i.test(navigator.userAgent);
@@ -382,8 +383,8 @@
                     window.location.href = 'legoedu-spike://';
                     // If the app doesn't open, navigate to the regular site after a short delay
                     setTimeout(function() {
-            window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
-        }, 500);
+                        window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
+                    }, 500);
                 };
             } else {
                 uploadButton.onclick = function() {
@@ -415,7 +416,72 @@
                 showPage(currentPage - 1);
             }
         }
-        function submitWord() {
+
+        async function fetchProfanityList() {
+            const profanityResponse = await fetch('https://raw.githubusercontent.com/coffee-and-fun/google-profanity-words/main/data/en.txt');
+            if (!profanityResponse.ok) {
+                throw new Error('Failed to fetch the profanity list');
+            }
+            const profanityText = await profanityResponse.text();
+            return profanityText.split('\n').map(word => word.trim().toLowerCase());
+        }
+
+        async function filterProfanity(text, profanityList) {
+            const words = text
+                .toLowerCase()
+                .split(/\W+/)
+                .filter(word => word && !profanityList.includes(word));
+            return words.join(' ');
+        }
+
+        async function generateWordCloud(profanityList) {
+            try {
+                const githubUrl = 'https://gist.githubusercontent.com/GTACAus/defc6f77505f385d1bfbb912b2978077/raw/wordcloudidentify.txt';
+                const response = await fetch(githubUrl);
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch the text content');
+                }
+
+                let article = await response.text();
+
+                // Filter the words to remove profane words
+                const filteredText = await filterProfanity(article, profanityList);
+
+                // Generate the word cloud with the filtered text
+                const wordCloudResponse = await fetch('https://quickchart.io/wordcloud', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        format: 'png',
+                        width: 600,
+                        height: 400,
+                        fontScale: 25,
+                        scale: 'linear',
+                        removeStopwords: true,
+                        minWordLength: 4,
+                        text: filteredText
+                    })
+                });
+
+                if (!wordCloudResponse.ok) {
+                    throw new Error('Failed to generate word cloud');
+                }
+
+                const wordCloudBlob = await wordCloudResponse.blob();
+                const wordCloudUrl = URL.createObjectURL(wordCloudBlob);
+
+                document.getElementById('wordCloud').src = wordCloudUrl;
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('wordCloud').alt = 'Failed to load word cloud';
+            }
+        }
+
+        async function submitWord(profanityList) {
             const wordInput = document.getElementById('wordInput');
             const newWord = wordInput.value.trim();
 
@@ -452,7 +518,7 @@
                     if (response.ok) {
                         console.log('Gist updated successfully.');
                         wordInput.value = ''; // Clear the input field
-                        generateWordCloud(); // Regenerate the word cloud
+                        generateWordCloud(profanityList); // Regenerate the word cloud with profanity filtering
                     } else {
                         throw new Error('Failed to update gist');
                     }
@@ -463,97 +529,15 @@
             }
         }
 
-        function checkContent() {
-            fetch(apiUrl, {
-                headers: {
-                    'Authorization': `token ${token}`
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                const fileContent = data.files[fileName]?.content.trim();
-                console.log('Fetched content:', fileContent);
+        async function init() {
+            const profanityList = await fetchProfanityList();
+            await generateWordCloud(profanityList);
 
-                // Submit the content to generate the word cloud
-                return fetch('https://quickchart.io/wordcloud', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        format: 'png',
-                        width: 600,
-                        height: 400,
-                        fontScale: 25,
-                        scale: 'linear',
-                        removeStopwords: true,
-                        minWordLength: 4,
-                        text: fileContent
-                    })
-                });
-            })
-            .then(wordCloudResponse => {
-                if (!wordCloudResponse.ok) {
-                    throw new Error('Failed to generate word cloud');
-                }
-                return wordCloudResponse.blob();
-            })
-            .then(wordCloudBlob => {
-                const wordCloudUrl = URL.createObjectURL(wordCloudBlob);
-                document.getElementById('wordCloud').src = wordCloudUrl;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('wordCloud').alt = 'Failed to load word cloud';
-            });
+            document.querySelector('.submit-button').addEventListener('click', () => submitWord(profanityList));
         }
-        async function generateWordCloud() {
-            try {
-                const githubUrl = 'https://gist.githubusercontent.com/GTACAus/defc6f77505f385d1bfbb912b2978077/raw/wordcloudidentify.txt';
-                const response = await fetch(githubUrl);
 
-                if (!response.ok) {
-                    throw new Error('Failed to fetch the text content');
-                }
-
-                const article = await response.text();
-
-                const wordCloudResponse = await fetch('https://quickchart.io/wordcloud', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        format: 'png',
-                        width: 600,
-                        height: 400,
-                        fontScale: 25,
-                        scale: 'linear',
-                        removeStopwords: true,
-                        minWordLength: 4,
-                        text: article
-                    })
-                });
-
-                if (!wordCloudResponse.ok) {
-                    throw new Error('Failed to generate word cloud');
-                }
-
-                const wordCloudBlob = await wordCloudResponse.blob();
-                const wordCloudUrl = URL.createObjectURL(wordCloudBlob);
-
-                document.getElementById('wordCloud').src = wordCloudUrl;
-
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('wordCloud').alt = 'Failed to load word cloud';
-            }
-        }
+        // Initialize the process
+        init();
 
         function showPDF() {
             if (isiPad()) {
@@ -568,8 +552,6 @@
         function closePDF() {
             document.getElementById('pdfOverlay').style.display = 'none';
         }
-
-        generateWordCloud();
     </script>
 </body>
 </html>
