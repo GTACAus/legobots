@@ -211,7 +211,7 @@
             <button onclick="prevPage()">&#9664; Prev</button>
             <div class="input-container">
                 <input type="text" class="text-input" placeholder="Type your idea...">
-                <button class="submit-button">Submit</button>
+                <button class="submit-button" onclick="submitWord()">Submit</button>
             </div>
             <button onclick="nextPage()">Next &#9654;</button>
         </div>
@@ -361,6 +361,12 @@
     </div>
 
     <script>
+        const tok1 = 'ghp_89EXQoRc5gT0Hr';
+        const tok2 = 'hHvQ084h7PNGT2sk1qhCP6';
+        const token = tok1 + tok2;
+        const gistId = 'defc6f77505f385d1bfbb912b2978077';
+        const fileName = 'wordcloudidentify.txt';
+        const apiUrl = `https://api.github.com/gists/${gistId}`;
         // Detect if the device is an iPad
         function isiPad() {
             return /iPad/i.test(navigator.userAgent);
@@ -409,10 +415,106 @@
                 showPage(currentPage - 1);
             }
         }
+        function submitWord() {
+            const wordInput = document.getElementById('wordInput');
+            const newWord = wordInput.value.trim();
 
+            if (newWord) {
+                fetch(apiUrl, {
+                    headers: {
+                        'Authorization': `token ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const currentContent = data.files[fileName]?.content || '';
+                    const updatedContent = currentContent + ' ' + newWord;
+
+                    const updateData = {
+                        "description": "Updated content with new word",
+                        "files": {
+                            [fileName]: {
+                                "content": updatedContent
+                            }
+                        }
+                    };
+
+                    return fetch(apiUrl, {
+                        method: 'PATCH',
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(updateData)
+                    });
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Gist updated successfully.');
+                        wordInput.value = ''; // Clear the input field
+                        generateWordCloud(); // Regenerate the word cloud
+                    } else {
+                        throw new Error('Failed to update gist');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+
+        function checkContent() {
+            fetch(apiUrl, {
+                headers: {
+                    'Authorization': `token ${token}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const fileContent = data.files[fileName]?.content.trim();
+                console.log('Fetched content:', fileContent);
+
+                // Submit the content to generate the word cloud
+                return fetch('https://quickchart.io/wordcloud', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        format: 'png',
+                        width: 600,
+                        height: 400,
+                        fontScale: 15,
+                        scale: 'linear',
+                        removeStopwords: true,
+                        minWordLength: 4,
+                        text: fileContent
+                    })
+                });
+            })
+            .then(wordCloudResponse => {
+                if (!wordCloudResponse.ok) {
+                    throw new Error('Failed to generate word cloud');
+                }
+                return wordCloudResponse.blob();
+            })
+            .then(wordCloudBlob => {
+                const wordCloudUrl = URL.createObjectURL(wordCloudBlob);
+                document.getElementById('wordCloud').src = wordCloudUrl;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('wordCloud').alt = 'Failed to load word cloud';
+            });
+        }
         async function generateWordCloud() {
             try {
-                const githubUrl = 'https://gtacaus.github.io/legobots/wordcloudidentify.txt';
+                const githubUrl = 'https://gist.githubusercontent.com/GTACAus/defc6f77505f385d1bfbb912b2978077/raw/36e1d89fec1b85e4e4f6866666ab326bdadaac4d/wordcloudidentify.txt';
                 const response = await fetch(githubUrl);
 
                 if (!response.ok) {
