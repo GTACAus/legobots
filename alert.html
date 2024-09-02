@@ -371,6 +371,31 @@
         let currentPage = 0;
         const cards = document.querySelectorAll('.card');
 
+        // Detect if the device is an iPad
+        function isiPad() {
+            return /iPad/i.test(navigator.userAgent);
+        }
+        
+        // Set the appropriate link for the upload button based on the device
+        function setUploadButtonLink() {
+            const uploadButton = document.getElementById('uploadButton');
+
+            if (isiPad()) {
+                uploadButton.onclick = function() {
+                    // Attempt to open the LEGO Spike app
+                    window.location.href = 'legoedu-spike://';
+                    // If the app doesn't open, navigate to the regular site after a short delay
+                    setTimeout(function() {
+            window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
+        }, 500);
+                };
+            } else {
+                uploadButton.onclick = function() {
+                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
+                };
+            }
+        }
+        
         function showPage(index) {
             cards[currentPage].classList.remove('active');
             currentPage = index;
