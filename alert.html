@@ -27,11 +27,15 @@
             padding: 15px;
             text-align: center;
             height: 800px;
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
             padding-bottom: 70px; /* Added padding to ensure space for navigation */
+        }
+
+        .card.active {
+            display: flex;
         }
 
         .card h1 {
@@ -187,7 +191,7 @@
 <body>
 
     <!-- First Card -->
-    <div class="card">
+    <div class="card active">
         <h1>01/10</h1>
         <h2>Nurse! Could you please come and help me?</h2>
         <iframe class="scratch-embed" src="https://scratch.mit.edu/projects/1058538319/embed" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
@@ -199,7 +203,7 @@
     </div>
 
     <!-- Second Card -->
-    <div class="card" style="display: none;">
+    <div class="card">
         <h1>02/10</h1>
         <h2>I need some assistance!</h2> 
         <p>Patients at a hospital sometimes need help from their nurses, but the nurses can't be with them all the time. What if we could build an alert button to call a nurse or doctor? Share your ideas on how an alert button could be helpful in a hospital. Type your thoughts below and be part of our word cloud!</p>
@@ -210,7 +214,7 @@
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
             <div class="input-container">
-                <input type="text" class="text-input" placeholder="Type your idea...">
+                <input type="text" id="wordInput" class="text-input" placeholder="Type your idea..."> <!-- Added ID here -->
                 <button class="submit-button" onclick="submitWord()">Submit</button>
             </div>
             <button onclick="nextPage()">Next &#9654;</button>
@@ -218,7 +222,7 @@
     </div>
 
     <!-- Third Card -->
-    <div class="card" style="display: none;">
+    <div class="card">
         <h1>03/10</h1>
         <h2>Code to Call for Help</h2>
         
@@ -236,7 +240,7 @@
     </div>
 
     <!-- Fourth Card -->
-    <div class="card" style="display: none;">
+    <div class="card">
         <h1>04/10</h1>
         <h2>Time to Code!</h2>
         <img src="https://gtacaus.github.io/legobots/alertscratch.png" alt="Scratch Interface">
@@ -249,7 +253,7 @@
     </div>
 
     <!-- Fifth Card -->
-    <div class="card" style="display: none;">
+    <div class="card">
         <h1>05/10</h1>
         <h2>From Screen to Reality</h2>
         <div style="display: flex; flex-direction: column; align-items: center;">
@@ -264,7 +268,7 @@
     </div>
 
     <!-- Sixth Card -->
-    <div class="card" style="display: none;">
+    <div class="card">
         <h1>06/10</h1>
         <h2>Build Your Alert Button!</h2>
         <img src="https://gtacaus.github.io/legobots/alert.jpg" alt="Alert Button" style="width: 60%; height: auto; margin-top: 10px;">
@@ -277,7 +281,7 @@
     </div>
 
     <!-- Seventh Card -->
-    <div class="card" style="display: none;">
+    <div class="card">
         <h1>07/10</h1>
         <h2>Power Up Your Alert Button</h2>
         <img src="https://gtacaus.github.io/legobots/alertcodelego.png" alt="LEGO Alert Button">
@@ -290,7 +294,7 @@
     </div>
 
     <!-- Eighth Card -->
-    <div class="card" style="display: none;">
+    <div class="card">
         <h1>08/10</h1>
         <h2>Test Your Alert Button</h2>
         
@@ -299,8 +303,6 @@
         <source src="AlertUpload_MM_v2 Music.mp4" type="video/quicktime">
         Your browser does not support the video tag.
         </video>
-        
-        <!-- <iframe class="youtube-embed" src="https://www.youtube.com/embed/PLACEHOLDER" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
         
         <p>Let’s see your button in action! Watch this video to learn how to upload the code and test your <strong>Alert Bot</strong>.</p>
         <div class="nav-buttons">
@@ -311,7 +313,7 @@
     </div>
 
     <!-- Ninth Card -->
-    <div class="card" style="display: none;">
+    <div class="card">
         <h1>09/10</h1>
         <h2>Robots for a Better World</h2><br><br>
         <div class="bot-section">
@@ -337,7 +339,7 @@
     </div>
     
     <!-- Tenth Card -->
-    <div class="card" style="display: none;">
+    <div class="card">
         <h1>10/10</h1>
         <h2>More LEGO Spike Projects</h2>
         <p>Explore other cool projects like this one. From creative building to fun coding, there’s always more to learn with LEGO Spike!</p>
@@ -366,8 +368,26 @@
         const fileName = 'wordcloudalert.txt';
         const apiUrl = `https://api.github.com/gists/${gistId}`;
 
-        const cards = document.querySelectorAll('.card');
         let currentPage = 0;
+        const cards = document.querySelectorAll('.card');
+
+        function showPage(index) {
+            cards[currentPage].classList.remove('active');
+            currentPage = index;
+            cards[currentPage].classList.add('active');
+        }
+
+        function nextPage() {
+            if (currentPage < cards.length - 1) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                showPage(currentPage - 1);
+            }
+        }
 
         function submitWord() {
             const wordInput = document.getElementById('wordInput');
@@ -414,55 +434,6 @@
                 .catch(error => {
                     console.error('Error:', error);
                 });
-            }
-        }
-
-        // Detect if the device is an iPad
-        function isiPad() {
-            return /iPad/i.test(navigator.userAgent);
-        }
-
-        // Set the appropriate link for the upload button based on the device
-        function setUploadButtonLink() {
-            const uploadButton = document.getElementById('uploadButton');
-
-            if (isiPad()) {
-                uploadButton.onclick = function() {
-                    // Attempt to open the LEGO Spike app
-                    window.location.href = 'legoedu-spike://';
-                    // If the app doesn't open, navigate to the regular site after a short delay
-                    setTimeout(function() {
-            window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-        }, 500);
-                };
-            } else {
-                uploadButton.onclick = function() {
-                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-                };
-            }
-        }
-
-        // Call the function to set the correct link when the page loads
-        setUploadButtonLink();
-
-        let currentPage = 0;
-        const cards = document.querySelectorAll('.card');
-
-        function showPage(index) {
-            cards[currentPage].style.display = 'none';
-            currentPage = index;
-            cards[currentPage].style.display = 'block';
-        }
-
-        function nextPage() {
-            if (currentPage < cards.length - 1) {
-                showPage(currentPage + 1);
-            }
-        }
-
-        function prevPage() {
-            if (currentPage > 0) {
-                showPage(currentPage - 1);
             }
         }
 
