@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Caesar Cipher Example</h1>
+
+<div class="container">
+    <h2>Original Text</h2>
+    <pre id="originalText">Loading...</pre>
+</div>
+
+<div class="container">
+    <h2>Caesar Cipher (Shifted by 3)</h2>
+    <pre id="cipherText">Loading...</pre>
+</div>
+
+<div class="container">
+    <h2>Deciphered Text</h2>
+    <pre id="decipheredText">Loading...</pre>
+</div>
+
+<script>
+    // Function to fetch the contents of the text file
+    async function fetchText(filePath) {
+        const response = await fetch(filePath);
+        const text = await response.text();
+        return text;
+    }
+
+    // Function to apply the Caesar cipher
+    function caesarCipher(text, shift) {
+        return text.split('').map(char => {
+            if (char.match(/[a-z]/i)) {
+                const code = char.charCodeAt(0);
+                const base = code >= 65 && code <= 90 ? 65 : 97; // Uppercase or lowercase
+                return String.fromCharCode(((code - base + shift) % 26) + base);
+            }
+            return char;
+        }).join('');
+    }
+
+    // Function to display the text in the HTML
+    async function displayTexts() {
+        const filePath = 'boogeraids.txt';
+        const originalText = await fetchText(filePath);
+        const shiftValue = 3;
+
+        const cipherText = caesarCipher(originalText, shiftValue);
+        const decipheredText = caesarCipher(cipherText, -shiftValue);
+
+        document.getElementById('originalText').textContent = originalText;
+        document.getElementById('cipherText').textContent = cipherText;
+        document.getElementById('decipheredText').textContent = decipheredText;
+    }
+
+    // Run the displayTexts function when the page loads
+    window.onload = displayTexts;
+</script>
+
+</body>
+</html>
