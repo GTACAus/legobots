@@ -31,7 +31,7 @@
             flex-direction: column;
             justify-content: space-between;
             position: relative;
-            padding-bottom: 70px; /* Added padding to ensure space for navigation */
+            padding-bottom: 70px;
         }
 
         .card.active {
@@ -82,12 +82,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative; /* Changed from absolute to relative */
+            position: relative;
             bottom: 0;
             left: 0;
             right: 0;
             padding: 0 15px;
-            margin-top: 20px; /* Add margin to create space between content and buttons */
+            margin-top: 20px;
         }
 
         .nav-buttons button {
@@ -225,13 +225,11 @@
     <div class="card">
         <h1>03/10</h1>
         <h2>Code to Call for Help</h2>
-        
         <video width="600" height="300" controls>
-        <source src="alert_MM_v3 Music.mp4" type="video/mp4">
-        <source src="alert_MM_v3 Music.mp4" type="video/quicktime">
-        Your browser does not support the video tag.
+            <source src="alert_MM_v3 Music.mp4" type="video/mp4">
+            <source src="alert_MM_v3 Music.mp4" type="video/quicktime">
+            Your browser does not support the video tag.
         </video>
-        
         <p>Now, let’s dive into coding! The scratch cat will call for help if you press the spacebar, you can make them happy again if you click on scratch cat.  Watch this video to learn how to code an alert button and a reset function.</p>
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
@@ -260,7 +258,7 @@
             <img src="https://gtacaus.github.io/legobots/alertcodescratch.png" alt="Block Code 1" style="width: 88%;">
             <img src="https://gtacaus.github.io/legobots/alertcodelego.png" alt="Block Code 2" style="width: 88%;">
         </div>
-        <p>Look at these examples. The same block code you used to create an altert can also code LEGO buttons to alert a nurse or doctor. Coding can help keep people healthy and safe in real life!</p>
+        <p>Look at these examples. The same block code you used to create an alert can also code LEGO buttons to alert a nurse or doctor. Coding can help keep people healthy and safe in real life!</p>
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
             <button onclick="nextPage()">Next &#9654;</button>
@@ -297,13 +295,11 @@
     <div class="card">
         <h1>08/10</h1>
         <h2>Test Your Alert Button</h2>
-        
         <video width="600" height="300" controls>
-        <source src="AlertUpload_MM_v2 Music.mp4" type="video/mp4">
-        <source src="AlertUpload_MM_v2 Music.mp4" type="video/quicktime">
-        Your browser does not support the video tag.
+            <source src="AlertUpload_MM_v2 Music.mp4" type="video/mp4">
+            <source src="AlertUpload_MM_v2 Music.mp4" type="video/quicktime">
+            Your browser does not support the video tag.
         </video>
-        
         <p>Let’s see your button in action! Watch this video to learn how to upload the code and test your <strong>Alert Bot</strong>.</p>
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
@@ -371,41 +367,34 @@
         let currentPage = 0;
         const cards = document.querySelectorAll('.card');
 
-        // Detect if the device is an iPad
-        function isiPad() {
-            return /iPad/i.test(navigator.userAgent);
+        // Function to apply the Caesar cipher
+        function caesarCipher(text, shift) {
+            return text.split('').map(char => {
+                if (char.match(/[a-z]/i)) {
+                    const code = char.charCodeAt(0);
+                    const base = code >= 65 && code <= 90 ? 65 : 97; // Uppercase or lowercase
+                    return String.fromCharCode(((code - base + shift) % 26) + base);
+                }
+                return char;
+            }).join('');
         }
 
-        // Set the appropriate link for the upload button based on the device
-        function setUploadButtonLink() {
-            const uploadButton = document.getElementById('uploadButton');
-
-            if (isiPad()) {
-                uploadButton.onclick = function() {
-                    // Attempt to open the LEGO Spike app
-                    window.location.href = 'legoedu-spike://';
-                    // If the app doesn't open, navigate to the regular site after a short delay
-                    setTimeout(function() {
-                        window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
-                    }, 500);
-                };
-            } else {
-                uploadButton.onclick = function() {
-                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-                };
-            }
-        }
-
-        // Call the function to set the correct link when the page loads
-        setUploadButtonLink();
-
+        // Fetch the encoded profanity list and decipher it
         async function fetchProfanityList() {
-            const profanityResponse = await fetch('boogeraids.txt');
-            if (!profanityResponse.ok) {
-                throw new Error('Failed to fetch the profanity list');
+            const filePath = 'cypher.txt';
+            const shiftValue = 3; // Caesar cipher shift value used for encryption
+            const encodedText = await fetchText(filePath);
+            const decodedText = caesarCipher(encodedText, -shiftValue);
+            return decodedText.split('\n').map(word => word.trim().toLowerCase());
+        }
+
+        // Helper function to fetch text from a file
+        async function fetchText(filePath) {
+            const response = await fetch(filePath);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch ${filePath}`);
             }
-            const profanityText = await profanityResponse.text();
-            return profanityText.split('\n').map(word => word.trim().toLowerCase());
+            return await response.text();
         }
 
         async function filterProfanity(text, profanityList) {
@@ -539,10 +528,8 @@
 
         function showPDF() {
             if (isiPad()) {
-                // Open the PDF in a new tab on iPad
                 window.open('https://gtacaus.github.io/legobots/alert.pdf', '_blank');
             } else {
-                // Display the PDF overlay for other devices
                 window.open('https://gtacaus.github.io/legobots/alert.pdf', '_blank');
             }
         }
@@ -550,6 +537,32 @@
         function closePDF() {
             document.getElementById('pdfOverlay').style.display = 'none';
         }
+
+        // Function to check if the device is an iPad
+        function isiPad() {
+            return /iPad/i.test(navigator.userAgent);
+        }
+
+        // Function to set the upload button link for different devices
+        function setUploadButtonLink() {
+            const uploadButton = document.getElementById('uploadButton');
+
+            if (isiPad()) {
+                uploadButton.onclick = function() {
+                    window.location.href = 'legoedu-spike://';
+                    setTimeout(function() {
+                        window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
+                    }, 500);
+                };
+            } else {
+                uploadButton.onclick = function() {
+                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
+                };
+            }
+        }
+
+        // Call the function to set the correct link when the page loads
+        setUploadButtonLink();
     </script>
 </body>
 </html>
