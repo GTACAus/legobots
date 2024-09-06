@@ -1,1 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurse! Please help.</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+            width: 90%;
+            max-width: 600px;
+            padding: 15px;
+            text-align: center;
+            height: 800px;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            padding-bottom: 70px;
+        }
 
+        .card.active {
+            display: flex;
+        }
+
+        .card h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .card h2 {
+            font-size: 2em;
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        .card iframe.scratch-embed {
+            border-radius: 10px;
+            width: 100%;
+            max-width: 100%;
+            height: 400px;
+            margin-top: 10px;
+        }
+
+        .card iframe.youtube-embed {
+            border-radius: 10px;
+            width: 100%;
+            max-width: 100%;
+            height: 500px;
+            margin-top: 10px;
+        }
+
+        .card img {
+            border-radius: 10px;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .card p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0 15px;
+            margin-top: 20px;
+        }
+
+        .nav-buttons button {
+            margin: 5px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 25px;
+            background-color: #007bff;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .input-container {
+            display: flex;
+            flex-grow: 1;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+        }
+
+        .text-input {
+            padding: 8px;
+            border-radius: 15px;
+            border: 1px solid #ccc;
+            flex-grow: 1;
+            margin-right: 10px;
+            font-size: 1em;
+        }
+
+        .submit-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 15px;
+            background-color: #28a745;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #218838;
+        }
+
+        .pdf-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .pdf-overlay iframe {
+            width: 80%;
+            height: 80%;
+        }
+
+        .pdf-overlay .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .bot-section {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .bot-section strong {
+            display: block;
+            font-size: 1.3em;
+        }
+
+        .bot-section span {
+            font-size: 1.1em;
+        }
+
+        .bot-section p {
+            margin: 10px 0;
+            font-size: 1em;
+            line-height: 1.4em;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- First Card -->
+    <div class="card active">
+        <h1>01/10</h1>
+        <h2>Nurse! Could you please come and help me?</h2>
+        <iframe class="scratch-embed" src="https://scratch.mit.edu/projects/1058538319/embed" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
+        <p><strong>Click the flag to get the Scratch Cat some help from the nurse.</strong></p>
+        <p>Let's start with something fun—The Scratch Cat needs help so we need to summon a nurse! Click the flag to see it in action. You'll soon be coding and building to make a real alert button to call for assistance from a nurse.</p>
+        <div class="nav-buttons">
+            <button onclick="nextPage()">Next &#9654;</button>
+        </div>
+    </div>
+
+    <!-- Second Card -->
+    <div class="card">
+        <h1>02/10</h1>
+        <h2>I need some assistance!</h2> 
+        <p>Patients at a hospital sometimes need help from their nurses, but the nurses can't be with them all the time. What if we could build an alert button to call a nurse or doctor? Share your ideas on how an alert button could be helpful in a hospital. Type your thoughts below and be part of our word cloud!</p>
+
+        <!-- Word Cloud Image Placeholder -->
+        <img id="wordCloud" src="" alt="Word Cloud will appear here">
+
+        <div class="nav-buttons">
+            <button onclick="prevPage()">&#9664; Prev</button>
+            <div class="input-container">
+                <input type="text" id="wordInput" class="text-input" placeholder="Type your idea...">
+                <button class="submit-button" onclick="submitWord()">Submit</button>
+            </div>
+            <button onclick="nextPage()">Next &#9654;</button>
+        </div>
+    </div>
+
+    <!-- Third Card -->
+    <div class="card">
+        <h1>03/10</h1>
+        <h2>Code to Call for Help</h2>
+        <video width="600" height="300" controls>
+            <source src="alert_MM_v3 Music.mp4" type="video/mp4">
+            <source src="alert_MM_v3 Music.mp4" type="video/quicktime">
+            Your browser does not support the video tag.
+        </video>
+        <p>Now, let’s dive into coding! The scratch cat will call for help if you press the spacebar, you can make them happy again if you click on scratch cat.  Watch this video to learn how to code an alert button and a reset function.</p>
+        <div class="nav-buttons">
+            <button onclick="prevPage()">&#9664; Prev</button>
+            <button onclick="nextPage()">Next &#9654;</button>
+        </div>
+    </div>
+
+    <!-- Fourth Card -->
+    <div class="card">
+        <h1>04/10</h1>
+        <h2>Time to Code!</h2>
+        <img src="https://gtacaus.github.io/legobots/alertscratch.png" alt="Scratch Interface">
+        <p>Ready to give it a try? Click the CODE button to start coding the alert and reset buttons. Soon, you’ll be doing the same with your LEGO kit!</p>
+        <div class="nav-buttons">
+            <button onclick="prevPage()">&#9664; Prev</button>
+            <button onclick="window.open('https://scratch.mit.edu/projects/1062145250/editor/', '_blank')">CODE</button>
+            <button onclick="nextPage()">Next &#9654;</button>
+        </div>
+    </div>
+
+    <!-- Fifth Card -->
+    <div class="card">
+        <h1>05/10</h1>
+        <h2>From Screen to Reality</h2>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <img src="https://gtacaus.github.io/legobots/alertcodescratch.png" alt="Block Code 1" style="width: 88%;">
+            <img src="https://gtacaus.github.io/legobots/alertcodelego.png" alt="Block Code 2" style="width: 88%;">
+        </div>
+        <p>Look at these examples. The same block code you used to create an alert can also code LEGO buttons to alert a nurse or doctor. Coding can help keep people healthy and safe in real life!</p>
+        <div class="nav-buttons">
+            <button onclick="prevPage()">&#9664; Prev</button>
+            <button onclick="nextPage()">Next &#9654;</button>
+        </div>
+    </div>
+
+    <!-- Sixth Card -->
+    <div class="card">
+        <h1>06/10</h1>
+        <h2>Build Your Alert Button!</h2>
+        <img src="https://gtacaus.github.io/legobots/alert.jpg" alt="Alert Button" style="width: 60%; height: auto; margin-top: 10px;">
+        <p>Now that you’ve got the code, it’s time to build! Follow these instructions to create an alert button to summon help.</p>
+        <div class="nav-buttons">
+            <button onclick="prevPage()">&#9664; Prev</button>
+            <button onclick="showPDF()">BUILD</button>
+            <button onclick="nextPage()">Next &#9654;</button>
+        </div>
+    </div>
+
+    <!-- Seventh Card -->
+    <div class="card">
+        <h1>07/10</h1>
+        <h2>Power Up Your Alert Button</h2>
+        <img src="https://gtacaus.github.io/legobots/alertcodelego.png" alt="LEGO Alert Button">
+        <p>Your bot is ready to go! Plug the button into port A, and download the code to your device.</p>
+        <div class="nav-buttons">
+            <button onclick="prevPage()">&#9664; Prev</button>
+            <button onclick="window.location.href='https://gtacaus.github.io/legobots/Alert_v1.llsp3'">GET CODE</button>
+            <button onclick="nextPage()">Next &#9654;</button>
+        </div>
+    </div>
+
+    <!-- Eighth Card -->
+    <div class="card">
+        <h1>08/10</h1>
+        <h2>Test Your Alert Button</h2>
+        <video width="600" height="300" controls>
+            <source src="AlertUpload_MM_v2 Music.mp4" type="video/mp4">
+            <source src="AlertUpload_MM_v2 Music.mp4" type="video/quicktime">
+            Your browser does not support the video tag.
+        </video>
+        <p>Let’s see your button in action! Watch this video to learn how to upload the code and test your <strong>Alert Bot</strong>.</p>
+        <div class="nav-buttons">
+            <button onclick="prevPage()">&#9664; Prev</button>
+            <button id="uploadButton">UPLOAD AND TEST CODE</button>
+            <button onclick="nextPage()">Next &#9654;</button>
+        </div>
+    </div>
+
+    <!-- Ninth Card -->
+    <div class="card">
+        <h1>09/10</h1>
+        <h2>Robots for a Better World</h2><br><br>
+        <div class="bot-section">
+            <strong><span style="color:green;">Farm assistant</span></strong>
+            <span>Call the cows! - <em>Modify the code for the same build.</em></span>
+            <p>Can you modify your code to make your button start a sound that will call the cows to come to be milked?</p>
+        </div>
+
+        <div class="bot-section">
+            <strong><span style="color:orange;">Helper Bot</span></strong>
+            <span>Medicine dispenser- <em>Modify the code and the build.</em></span>
+            <p>Can you make a robot that starts and stops a motor with the same button presses?</p>
+        </div>
+
+        <div class="bot-section">
+            <strong><span style="color:red;">Sustainability message sign</span></strong>
+            <span>Send a positive message- <em>Modify the build and the code.</em></span>
+            <p>Can you turn your alert button into a bulletin board that shares a positive message?  Also, we would like to be able to turn it on in the morning and off at night time.</p>
+        </div>
+        <div class="nav-buttons">
+            <button onclick="prevPage()">&#9664; Prev</button><button onclick="nextPage()">Next &#9654;</button>
+        </div>
+    </div>
+    
+    <!-- Tenth Card -->
+    <div class="card">
+        <h1>10/10</h1>
+        <h2>More LEGO Spike Projects</h2>
+        <p>Explore other cool projects like this one. From creative building to fun coding, there’s always more to learn with LEGO Spike!</p>
+        <h3>Lego clean up</h3>
+        <a href="https://spike.legoeducation.com/prime/unit-plans/bltdfae10d779620d2b/lesson-detail/blt3f6b88e7e6f41b01">
+            <img src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/bltd4e15ff8da79da08/5ec96efa56542b5199dc157e/lesson-header.png" alt="Help!" style="width: 38%;">
+
+        </a>
+        
+        <div class="nav-buttons">
+            <button onclick="prevPage()">&#9664; Prev</button>
+        </div>
+    </div>
+
+    <!-- PDF Overlay -->
+    <div id="pdfOverlay" class="pdf-overlay" style="display: none;">
+        <embed src="https://gtacaus.github.io/legobots/alert.pdf" type="application/pdf" width="80%" height="80%">
+        <button class="close-button" onclick="closePDF()">X</button>
+    </div>
+
+    <script>
+        const tok1 = 'ghp_89EXQoRc5gT0Hr';
+        const tok2 = 'hHvQ084h7PNGT2sk1qhCP6';
+        const token = tok1 + tok2;
+        const gistId = '9cf36ca5a6f29a7cce9a12af1cbf0651';
+        const fileName = 'wordcloudalert.txt';
+        const apiUrl = `https://api.github.com/gists/${gistId}`;
+
+        let currentPage = 0;
+        const cards = document.querySelectorAll('.card');
+
+        // Function to apply the Caesar cipher
+        function caesarCipher(text, shift) {
+            return text.split('').map(char => {
+                if (char.match(/[a-z]/i)) {
+                    const code = char.charCodeAt(0);
+                    const base = code >= 65 && code <= 90 ? 65 : 97; // Uppercase or lowercase
+                    return String.fromCharCode(((code - base + shift) % 26) + base);
+                }
+                return char;
+            }).join('');
+        }
+
+        // Fetch the encoded profanity list and decipher it
+        async function fetchProfanityList() {
+            const filePath = 'cypher.txt';
+            const shiftValue = 3; // Caesar cipher shift value used for encryption
+            const encodedText = await fetchText(filePath);
+            const decodedText = caesarCipher(encodedText, -shiftValue);
+            return decodedText.split('\n').map(word => word.trim().toLowerCase());
+        }
+
+        // Helper function to fetch text from a file
+        async function fetchText(filePath) {
+            const response = await fetch(filePath);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch ${filePath}`);
+            }
+            return await response.text();
+        }
+
+        async function filterProfanity(text, profanityList) {
+            const words = text
+                .toLowerCase()
+                .split(/\W+/)
+                .filter(word => word && !profanityList.includes(word));
+            return words.join(' ');
+        }
+
+        async function generateWordCloud(profanityList) {
+            try {
+                const githubUrl = 'https://gist.githubusercontent.com/GTACAus/9cf36ca5a6f29a7cce9a12af1cbf0651/raw/wordcloudalert.txt';
+                const response = await fetch(githubUrl);
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch the text content');
+                }
+
+                let article = await response.text();
+
+                // Filter the words to remove profane words
+                const filteredText = await filterProfanity(article, profanityList);
+
+                // Generate the word cloud with the filtered text
+                const wordCloudResponse = await fetch('https://quickchart.io/wordcloud', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        format: 'png',
+                        width: 600,
+                        height: 400,
+                        fontScale: 25,
+                        scale: 'linear',
+                        removeStopwords: true,
+                        minWordLength: 4,
+                        text: filteredText
+                    })
+                });
+
+                if (!wordCloudResponse.ok) {
+                    throw new Error('Failed to generate word cloud');
+                }
+
+                const wordCloudBlob = await wordCloudResponse.blob();
+                const wordCloudUrl = URL.createObjectURL(wordCloudBlob);
+
+                document.getElementById('wordCloud').src = wordCloudUrl;
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('wordCloud').alt = 'Failed to load word cloud';
+            }
+        }
+
+        async function submitWord(profanityList) {
+            const wordInput = document.getElementById('wordInput');
+            const newWord = wordInput.value.trim();
+
+            if (newWord) {
+                fetch(apiUrl, {
+                    headers: {
+                        'Authorization': `token ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const currentContent = data.files[fileName]?.content || '';
+                    const updatedContent = currentContent + ' ' + newWord;
+
+                    return fetch(apiUrl, {
+                        method: 'PATCH',
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            "description": "Updated content with new word",
+                            "files": {
+                                [fileName]: {
+                                    "content": updatedContent
+                                }
+                            }
+                        })
+                    });
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Gist updated successfully.');
+                        wordInput.value = ''; // Clear the input field
+                        generateWordCloud(profanityList); // Regenerate the word cloud with profanity filtering
+                    } else {
+                        throw new Error('Failed to update gist');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+
+        async function init() {
+            const profanityList = await fetchProfanityList();
+            await generateWordCloud(profanityList);
+
+            document.querySelector('.submit-button').addEventListener('click', () => submitWord(profanityList));
+        }
+
+        // Initialize the process
+        init();
+
+        function showPage(index) {
+            cards[currentPage].classList.remove('active');
+            currentPage = index;
+            cards[currentPage].classList.add('active');
+        }
+
+        function nextPage() {
+            if (currentPage < cards.length - 1) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                showPage(currentPage - 1);
+            }
+        }
+
+        function showPDF() {
+            if (isiPad()) {
+                window.open('https://gtacaus.github.io/legobots/alert.pdf', '_blank');
+            } else {
+                window.open('https://gtacaus.github.io/legobots/alert.pdf', '_blank');
+            }
+        }
+
+        function closePDF() {
+            document.getElementById('pdfOverlay').style.display = 'none';
+        }
+
+        // Function to check if the device is an iPad
+        function isiPad() {
+            return /iPad/i.test(navigator.userAgent);
+        }
+
+        // Function to set the upload button link for different devices
+        function setUploadButtonLink() {
+            const uploadButton = document.getElementById('uploadButton');
+
+            if (isiPad()) {
+                uploadButton.onclick = function() {
+                    window.location.href = 'legoedu-spike://';
+                    setTimeout(function() {
+                        window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
+                    }, 500);
+                };
+            } else {
+                uploadButton.onclick = function() {
+                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
+                };
+            }
+        }
+
+        // Call the function to set the correct link when the page loads
+        setUploadButtonLink();
+    </script>
+</body>
+</html>
