@@ -16,7 +16,7 @@
             justify-content: center;
             height: 100vh;
         }
-        
+
         .card {
             background-color: white;
             border-radius: 15px;
@@ -53,14 +53,6 @@
             margin-top: 10px;
         }
 
-        .card iframe.youtube-embed {
-            border-radius: 10px;
-            width: 100%;
-            max-width: 100%;
-            height: 500px;
-            margin-top: 10px;
-        }
-
         .card img {
             border-radius: 10px;
             width: 100%;
@@ -78,12 +70,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative; /* Changed from absolute to relative */
+            position: relative;
             bottom: 0;
             left: 0;
             right: 0;
             padding: 0 15px;
-            margin-top: 20px; /* Add margin to create space between content and buttons */
+            margin-top: 20px;
         }
 
         .nav-buttons button {
@@ -201,7 +193,7 @@
     <!-- Second Card -->
     <div class="card" style="display: none;">
         <h1>02/10</h1>
-        <h2>Give a Farmer a hand</h2> 
+        <h2>Give a Farmer a Hand</h2>
         <p>Farmers often have to dig lots of holes. What if we could build a robot to do it for them? Share your ideas on how a digging robot could help on a farm. Type your thoughts below and be part of our word cloud!</p>
 
         <!-- Word Cloud Image Placeholder -->
@@ -221,13 +213,11 @@
     <div class="card" style="display: none;">
         <h1>03/10</h1>
         <h2>Code to Spin</h2>
-        
         <video width="600" height="300" controls>
-        <source src="spin_MM_v1 Music.mp4" type="video/mp4">
-        <source src="spin_MM_v1 Music.mp4" type="video/quicktime">
-        Your browser does not support the video tag.
+            <source src="spin_MM_v1 Music.mp4" type="video/mp4">
+            <source src="spin_MM_v1 Music.mp4" type="video/quicktime">
+            Your browser does not support the video tag.
         </video>
-        
         <p>Now, let’s dive into coding! If you can make the Scratch Cat spin, you can control a robot’s motor. Watch this video to learn how to code the cat to spin.</p>
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
@@ -254,7 +244,7 @@
         <h2>From Screen to Reality</h2>
         <div style="display: flex; justify-content: space-between;">
             <img src="https://gtacaus.github.io/legobots/diggerscratch.png" alt="Block Code 1" style="width: 48%;">
-            <img src="https://gtacaus.github.io/legobots/diggerlego.png" alt="Block Code 2" style="width: 58%;">
+            <img src="https://gtacaus.github.io/legobots/diggerlego.png" alt="Block Code 2" style="width: 48%;">
         </div>
         <p>Look at these examples. The same block code you used to spin the Scratch Cat can also spin a LEGO motor. Coding can make things move in real life!</p>
         <div class="nav-buttons">
@@ -293,13 +283,11 @@
     <div class="card" style="display: none;">
         <h1>08/10</h1>
         <h2>Test Your Bot</h2>
-                             
         <video width="600" height="300" controls>
-        <source src="SpinUpload_MM_v1 Music.mp4" type="video/mp4">
-        <source src="SpinUpload_MM_v1 Music.mp4" type="video/quicktime">
+            <source src="SpinUpload_MM_v1 Music.mp4" type="video/mp4">
+            <source src="SpinUpload_MM_v1 Music.mp4" type="video/quicktime">
             Your browser does not support the video tag.
         </video>
-        
         <p>Let’s see your bot in action! Watch this video to learn how to upload the code and test your digging bot.</p>
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
@@ -315,7 +303,7 @@
         <div class="bot-section">
             <strong><span style="color:green;">Green Machine</span></strong>
             <span>Seed hole digger - <em>Modify the code for the same build.</em></span>
-            <p>Can you modify your code to make your robot dig multiple holes, with a few seconds pause between each hole, to move to a new spot? (scattered blocks)?</p>
+            <p>Can you modify your code to make your robot dig multiple holes, with a few seconds pause between each hole, to move to a new spot?</p>
         </div>
 
         <div class="bot-section">
@@ -327,7 +315,7 @@
         <div class="bot-section">
             <strong><span style="color:red;">Farm Assistant</span></strong>
             <span>Fence post digger - <em>Modify the code and the build.</em></span>
-            <p>Your robot is now a fence post digger. Can you modify your build's code to dig holes by spinning forwards then backwards (small block piles)?</p>
+            <p>Your robot is now a fence post digger. Can you modify your build's code to dig holes by spinning forwards then backwards?</p>
         </div>
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button><button onclick="nextPage()">Next &#9654;</button>
@@ -342,7 +330,6 @@
         <h3>The Thing</h3>
         <a href="https://spike.legoeducation.com/prime/unit-plans/blt48d4c1b4368b1fc5/lesson-detail/blt9ef07d2b41cc7beb">
             <img src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/blt0f794ee199aaa707/5ec6d1d2e014445192ea3f88/lesson-header-bi.png" alt="The Thing" style="width: 48%;">
-
         </a>
         <h3>Leo the Trainer</h3>
         <a href="https://spike.legoeducation.com/prime/models/blta68b76b4db027067">
@@ -367,38 +354,66 @@
         const fileName = 'wordcloud.txt';
         const apiUrl = `https://api.github.com/gists/${gistId}`;
 
-        // Detect if the device is an iPad
-        function isiPad() {
-            return /iPad/i.test(navigator.userAgent);
+        let currentPage = 0;
+        const cards = document.querySelectorAll('.card');
+
+        function showPage(index) {
+            cards[currentPage].style.display = 'none';
+            currentPage = index;
+            cards[currentPage].style.display = 'block';
         }
 
-        // Set the appropriate link for the upload button based on the device
-        function setUploadButtonLink() {
-            const uploadButton = document.getElementById('uploadButton');
-
-            if (isiPad()) {
-                uploadButton.onclick = function() {
-                    // Attempt to open the LEGO Spike app
-                    window.location.href = 'legoedu-spike://';
-                    // If the app doesn't open, navigate to the regular site after a short delay
-                    setTimeout(function() {
-                        window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
-                    }, 500);
-                };
-            } else {
-                uploadButton.onclick = function() {
-                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-                };
+        function nextPage() {
+            if (currentPage < cards.length - 1) {
+                showPage(currentPage + 1);
             }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                showPage(currentPage - 1);
+            }
+        }
+
+        function showPDF() {
+            if (isiPad()) {
+                // Open the PDF in a new tab on iPad
+                window.open('https://gtacaus.github.io/legobots/spin_v1.pdf', '_blank');
+            } else {
+                // Display the PDF overlay for other devices
+                window.open('https://gtacaus.github.io/legobots/spin_v1.pdf', '_blank');
+            }
+        }
+
+        function closePDF() {
+            document.getElementById('pdfOverlay').style.display = 'none';
         }
 
         async function fetchProfanityList() {
-            const profanityResponse = await fetch('boogeraids.txt');
-            if (!profanityResponse.ok) {
-                throw new Error('Failed to fetch the profanity list');
+            const filePath = 'cypher.txt';
+            const shiftValue = 3;
+            const encodedText = await fetchText(filePath);
+            const decodedText = caesarCipher(encodedText, -shiftValue);
+            return decodedText.split('\n').map(word => word.trim().toLowerCase());
+        }
+
+        function caesarCipher(text, shift) {
+            return text.split('').map(char => {
+                if (char.match(/[a-z]/i)) {
+                    const code = char.charCodeAt(0);
+                    const base = code >= 65 && code <= 90 ? 65 : 97;
+                    return String.fromCharCode(((code - base + shift) % 26) + base);
+                }
+                return char;
+            }).join('');
+        }
+
+        async function fetchText(filePath) {
+            const response = await fetch(filePath);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch ${filePath}`);
             }
-            const profanityText = await profanityResponse.text();
-            return profanityText.split('\n').map(word => word.trim().toLowerCase());
+            return await response.text();
         }
 
         async function filterProfanity(text, profanityList) {
@@ -419,11 +434,8 @@
                 }
 
                 let article = await response.text();
-
-                // Filter the words to remove profane words
                 const filteredText = await filterProfanity(article, profanityList);
 
-                // Generate the word cloud with the filtered text
                 const wordCloudResponse = await fetch('https://quickchart.io/wordcloud', {
                     method: 'POST',
                     headers: {
@@ -496,7 +508,7 @@
                     if (response.ok) {
                         console.log('Gist updated successfully.');
                         wordInput.value = ''; // Clear the input field
-                        generateWordCloud(profanityList); // Regenerate the word cloud
+                        generateWordCloud(profanityList);
                     } else {
                         throw new Error('Failed to update gist');
                     }
@@ -507,52 +519,15 @@
             }
         }
 
-        // Call the function to set the correct link when the page loads
-        setUploadButtonLink();
-
-        let currentPage = 0;
-        const cards = document.querySelectorAll('.card');
-
-        function showPage(index) {
-            cards[currentPage].style.display = 'none';
-            currentPage = index;
-            cards[currentPage].style.display = 'block';
-        }
-
-        function nextPage() {
-            if (currentPage < cards.length - 1) {
-                showPage(currentPage + 1);
-            }
-        }
-
-        function prevPage() {
-            if (currentPage > 0) {
-                showPage(currentPage - 1);
-            }
-        }
-
-        function showPDF() {
-            if (isiPad()) {
-                // Open the PDF in a new tab on iPad
-                window.open('https://gtacaus.github.io/legobots/spin_v1.pdf', '_blank');
-            } else {
-                // Display the PDF overlay for other devices
-                window.open('https://gtacaus.github.io/legobots/spin_v1.pdf', '_blank');
-            }
-        }
-
-        function closePDF() {
-            document.getElementById('pdfOverlay').style.display = 'none';
-        }
-
-        async function checkContent() {
+        async function init() {
             const profanityList = await fetchProfanityList();
-            generateWordCloud(profanityList);
+            await generateWordCloud(profanityList);
+
+            document.querySelector('.submit-button').addEventListener('click', () => submitWord());
         }
 
         // Initialize the page content with profanity filtering
-        checkContent();
-
+        init();
     </script>
 </body>
 </html>
