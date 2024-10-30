@@ -548,7 +548,7 @@
         async function init() {
             const profanityList = await fetchProfanityList();
             await generateWordCloud(profanityList);
-
+            setUploadButtonLink();
             document.querySelector('.submit-button').addEventListener('click', () => submitWord());
         }
 
