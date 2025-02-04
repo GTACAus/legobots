@@ -297,7 +297,11 @@
   <div class="nav-buttons">
     <!-- Other nav buttons -->
     <button onclick="prevPage()">&#9664; Prev</button>
-    <button id="uploadButton" style='display: none;">UPLOAD AND TEST CODE</button>
+    <button 
+     id="uploadButton" 
+    style='display: block;"
+    >UPLOAD AND TEST CODE
+    </button>
 
     <!-- NEW: Hidden by default; will be shown only on iPad -->
     <button 
@@ -592,10 +596,9 @@ function isiPad() {
         init();
     if (isiPad()) {
       document.getElementById('iPadMessage').style.display = 'block';
+        document.getElementById('uploadButton').style.display = 'none';
     }
-    if (!isiPad()) {
-        document.getElementById('uploadButton').style.display = 'block';
-    }
+
     </script>
 </body>
 </html>
