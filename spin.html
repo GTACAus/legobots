@@ -367,16 +367,11 @@
               uploadButton.onclick = function() {
                 // 1. We’ll track if the user actually left Safari (meaning app opened)
                 let appOpened = false;
-
-                // If Safari loses focus, presumably SPIKE app opened successfully
+                window.location = 'spike://prime/lobby';
                 window.onblur = function() {
                   appOpened = true;
                 };
 
-                // 2. Try to open SPIKE via the known scheme
-                window.location = 'spike://';
-
-                // 3. After 1 second (adjust as needed), if we’re still in Safari, fallback
                 setTimeout(function() {
                   if (!appOpened) {
                     // Fallback: open App Store link
@@ -385,7 +380,7 @@
                       '_blank'
                     );
                   }
-                }, 1000);
+                }, 1500);
                 };
             } else {
               // Non-iPad devices go to SPIKE web interface
