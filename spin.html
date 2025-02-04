@@ -363,44 +363,21 @@
         function setUploadButtonLink() {
             const uploadButton = document.getElementById('uploadButton');
 
-             function isiPad() {
-    // More robust detection if you only want iPad (not iPhone)
-    return /iPad/.test(navigator.userAgent)
-      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  }
-
-  function setUploadButtonLink() {
-    const uploadButton = document.getElementById('uploadButton');
-
-    if (isiPad()) {
-      uploadButton.onclick = function() {
-        let appOpened = false;
-
-        // Step 1: Attempt to open SPIKE
-        window.location = 'spike://';
-
-        // Step 2: If Safari blurs, user left the browser for the SPIKE app
-        window.onblur = function() {
-          appOpened = true;
-        };
-
-        // Step 3: After 2 seconds, if user still didn't blur Safari, fallback
-        setTimeout(function() {
-          if (!appOpened) {
-            window.open(
-              'https://apps.apple.com/us/app/spike-lego-education/id6443545905',
-              '_blank'
-            );
-          }
-        }, 2000);
-      };
-    } else {
-      // Non-iPad devices go to SPIKE web
-      uploadButton.onclick = function() {
-        window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-      };
-    }
-  }
+            if (isiPad()) {
+                uploadButton.onclick = function() {
+                    // Attempt to open the LEGO Spike app
+                    window.location.href = 'legoedu-spike://';
+                    // If the app doesn't open, navigate to the regular site after a short delay
+                    setTimeout(function() {
+                        window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
+                    }, 500);
+                };
+            } else {
+                uploadButton.onclick = function() {
+                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
+                };
+            }
+        }
 
 
         let currentPage = 0;
