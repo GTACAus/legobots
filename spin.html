@@ -293,8 +293,8 @@
     controls
     style="display: none;"
   >
-    <source src="SpinUpload_MM_iPad.mp4" type="video/mp4">
-    <source src="SpinUpload_MM_iPad.mp4" type="video/quicktime">
+    <source src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" type="video/mp4">
+    <source src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" type="video/quicktime">
     Your browser does not support the video tag.
   </video>
 
@@ -613,6 +613,8 @@ function isiPad() {
     if (isiPad()) {
       document.getElementById('iPadMessage').style.display = 'block';
       document.getElementById('uploadButton').style.display = 'none';
+      ipadVideo.style.display = 'block';
+      defaultVideo.style.display = 'none';
     }
     </script>
 </body>
