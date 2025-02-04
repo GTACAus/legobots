@@ -354,30 +354,42 @@
         const fileName = 'wordcloud.txt';
         const apiUrl = `https://api.github.com/gists/${gistId}`;
 
-                // Detect if the device is an iPad
-        function isiPad() {
-            return /iPad/i.test(navigator.userAgent);
-        }
+                    // Detect if the device is an iPad
+    function isiPad() {
+      return /iPad/i.test(navigator.userAgent);
+    }
 
-        // Set the appropriate link for the upload button based on the device
-        function setUploadButtonLink() {
-            const uploadButton = document.getElementById('uploadButton');
+    function setUploadButtonLink() {
+      const uploadButton = document.getElementById('uploadButton');
 
-            if (isiPad()) {
-                uploadButton.onclick = function() {
-                    // Attempt to open the LEGO Spike app
-                    window.location.href = 'legoedu-spike://';
-                    // If the app doesn't open, navigate to the regular site after a short delay
-                    setTimeout(function() {
-                        window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
-                    }, 500);
-                };
-            } else {
-                uploadButton.onclick = function() {
-                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-                };
+      if (isiPad()) {
+        uploadButton.onclick = function() {
+          let appOpened = false; 
+          const fallbackDelay = 1500; // 1.5 seconds
+          const storeURL = 'https://apps.apple.com/us/app/spike-lego-education/id6443545905';
+          
+          // 1. Try to open the SPIKE app
+          window.location = 'spike://';
+          
+          // 2. If the user actually leaves the browser (app opens), "blur" is triggered
+          window.onblur = function() {
+            appOpened = true;
+          };
+          
+          // 3. After the delay, if still not blurred, open the App Store
+          setTimeout(function() {
+            if (!appOpened) {
+              window.open(storeURL, '_blank');
             }
-        }
+          }, fallbackDelay);
+        };
+      } else {
+        // If not iPad, just open the SPIKE web link
+        uploadButton.onclick = function() {
+          window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
+        };
+      }
+    }
 
 
         let currentPage = 0;
