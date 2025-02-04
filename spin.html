@@ -284,9 +284,29 @@
   <h1>08/10</h1>
   <h2>Test Your Bot</h2>
 
-  <video width="600" height="300" controls>
-    <source src="SpinUpload_MM Upscaled.mp4" type="video/mp4">
-    <source src="SpinUpload_MM Upscaled.mp4" type="video/quicktime">
+  
+  <!-- Video for iPad (hidden by default) -->
+  <video
+    id="ipadVideo"
+    width="600"
+    height="300"
+    controls
+    style="display: none;"
+  >
+    <source src="SpinUpload_MM_iPad.mp4" type="video/mp4">
+    <source src="SpinUpload_MM_iPad.mp4" type="video/quicktime">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Video for non-iPad devices -->
+  <video
+    id="defaultVideo"
+    width="600"
+    height="300"
+    controls
+  >
+    <source src="SpinUpload_MM_Upscaled.mp4" type="video/mp4">
+    <source src="SpinUpload_MM_Upscaled.mp4" type="video/quicktime">
     Your browser does not support the video tag.
   </video>
 
