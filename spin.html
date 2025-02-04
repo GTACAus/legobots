@@ -279,24 +279,37 @@
         </div>
     </div>
 
-    <!-- Eighth Card -->
-    <div class="card" style="display: none;">
-        <h1>08/10</h1>
-        <h2>Test Your Bot</h2>
-        <video width="600" height="300" controls>
-            <source src="SpinUpload_MM Upscaled.mp4" type="video/mp4">
-            <source src="SpinUpload_MM Upscaled.mp4" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
-        <p>Let’s see your bot in action! Watch this video to learn how to upload the code and test your digging bot.</p>
-        <div class="nav-buttons">
-            <button onclick="prevPage()">&#9664; Prev</button>
-            <button id="uploadButton">UPLOAD AND TEST CODE</button>
-            <p id="iPadMessage" style="display: none;">Make sure you install <a href="https://apps.apple.com/us/app/spike-lego-education/id6443545905" target="_blank">
-                SPIKE Education</a> if you encounter any errors.</p>
-            <button onclick="nextPage()">Next &#9654;</button>
-        </div>
-    </div>
+<!-- Eighth Card -->
+<div class="card" style="display: none;">
+  <h1>08/10</h1>
+  <h2>Test Your Bot</h2>
+
+  <video width="600" height="300" controls>
+    <source src="SpinUpload_MM Upscaled.mp4" type="video/mp4">
+    <source src="SpinUpload_MM Upscaled.mp4" type="video/quicktime">
+    Your browser does not support the video tag.
+  </video>
+
+  <p>
+    Let’s see your bot in action! Watch this video to learn how to upload the code and test your digging bot.
+  </p>
+
+  <div class="nav-buttons">
+    <!-- Other nav buttons -->
+    <button onclick="prevPage()">&#9664; Prev</button>
+    <button id="uploadButton">UPLOAD AND TEST CODE</button>
+
+    <!-- NEW: Hidden by default; will be shown only on iPad -->
+    <button 
+      id="iPadMessage" 
+      style="display: none;" 
+      onclick="window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905','_blank')">
+      Make sure you install SPIKE Education if you encounter any errors
+    </button>
+
+    <button onclick="nextPage()">Next &#9654;</button>
+  </div>
+</div>
 
     <!-- Ninth Card -->
     <div class="card" style="display: none;">
