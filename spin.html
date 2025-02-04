@@ -297,14 +297,14 @@
   <div class="nav-buttons">
     <!-- Other nav buttons -->
     <button onclick="prevPage()">&#9664; Prev</button>
-    <button id="uploadButton">UPLOAD AND TEST CODE</button>
+    <button id="uploadButton" style='display: none;">UPLOAD AND TEST CODE</button>
 
     <!-- NEW: Hidden by default; will be shown only on iPad -->
     <button 
       id="iPadMessage" 
       style="display: none;" 
       onclick="window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905','_blank')">
-      Make sure you install SPIKE Education if you encounter any errors
+      Make sure you have SPIKE Education installed
     </button>
 
     <button onclick="nextPage()">Next &#9654;</button>
@@ -592,6 +592,9 @@ function isiPad() {
         init();
     if (isiPad()) {
       document.getElementById('iPadMessage').style.display = 'block';
+    }
+    if (!isiPad()) {
+        document.getElementById('uploadButton').style.display = 'block';
     }
     </script>
 </body>
