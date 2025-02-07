@@ -383,6 +383,19 @@
     </div>
 
     <script>
+        function isiPad() {
+      // If user agent explicitly contains "iPad" (older iOS versions)
+      if (navigator.userAgent.includes("iPad")) {
+        return true;
+      }
+
+      // On iPadOS 13+, Safari might report "MacIntel" but has touch points
+      if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) {
+        return true;
+      }
+
+      return false;
+    }
         const tok1 = 'ghp_89EXQoRc5gT0Hr';
         const tok2 = 'hHvQ084h7PNGT2sk1qhCP6';
         const token = tok1 + tok2;
@@ -564,11 +577,6 @@
             document.getElementById('pdfOverlay').style.display = 'none';
         }
 
-        // Function to check if the device is an iPad
-        function isiPad() {
-            return /iPad/i.test(navigator.userAgent);
-        }
-
         // Function to set the upload button link for different devices
         function setUploadButtonLink() {
             const uploadButton = document.getElementById('uploadButton');
@@ -578,7 +586,7 @@
       document.getElementById('uploadButton').style.display = 'none';
       ipadVideo.style.display = 'block';
       defaultVideo.style.display = 'none';
-    document.getElementById('cleanup').src = 'nav2thing.gif';
+    document.getElementById('cleanup').src = 'nav2cleanup.gif';
     document.getElementById('cleanupLink').href = 'spike://';
             
     }
