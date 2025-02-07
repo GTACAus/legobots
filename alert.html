@@ -295,7 +295,26 @@
     <div class="card">
         <h1>08/10</h1>
         <h2>Test Your Alert Button</h2>
-        <video width="600" height="300" controls>
+        <!-- Video for iPad (hidden by default) -->
+      <video
+        id="ipadVideo"
+        width="600"
+        height="300"
+        controls
+        style="display: none;"
+      >
+        <source src="testiPad.mp4" type="video/mp4">
+        <source src="testiPad.mp4" type="video/quicktime">
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Video for non-iPad devices -->
+      <video
+        id="defaultVideo"
+        width="600"
+        height="300"
+        controls
+      >
             <source src="AlertUpload_MM_upscaled.mp4" type="video/mp4">
             <source src="AlertUpload_MM_upscaled.mp4" type="video/quicktime">
             Your browser does not support the video tag.
@@ -304,6 +323,13 @@
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
             <button id="uploadButton">UPLOAD AND TEST CODE</button>
+            <!-- NEW: Hidden by default; will be shown only on iPad -->
+    <button 
+      id="iPadMessage" 
+      style="display: none;" 
+      onclick="window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905','_blank')">
+      Make sure you have SPIKE Education installed
+    </button>
             <button onclick="nextPage()">Next &#9654;</button>
         </div>
     </div>
@@ -340,8 +366,8 @@
         <h2>More LEGO Spike Projects</h2>
         <p>Explore other cool projects like this one. From creative building to fun coding, there’s always more to learn with LEGO Spike!</p>
         <h3>Lego clean up</h3>
-        <a href="https://spike.legoeducation.com/prime/unit-plans/bltdfae10d779620d2b/lesson-detail/blt3f6b88e7e6f41b01">
-            <img src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/bltd4e15ff8da79da08/5ec96efa56542b5199dc157e/lesson-header.png" alt="Help!" style="width: 38%;">
+        <a id="cleanupLink" href="https://spike.legoeducation.com/prime/unit-plans/bltdfae10d779620d2b/lesson-detail/blt3f6b88e7e6f41b01">
+            <img id="cleanup" src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/bltd4e15ff8da79da08/5ec96efa56542b5199dc157e/lesson-header.png" alt="Help!" style="width: 38%;">
 
         </a>
         
@@ -548,17 +574,14 @@
             const uploadButton = document.getElementById('uploadButton');
 
             if (isiPad()) {
-                uploadButton.onclick = function() {
-                    window.location.href = 'legoedu-spike://';
-                    setTimeout(function() {
-                        window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
-                    }, 500);
-                };
-            } else {
-                uploadButton.onclick = function() {
-                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-                };
-            }
+      document.getElementById('iPadMessage').style.display = 'block';
+      document.getElementById('uploadButton').style.display = 'none';
+      ipadVideo.style.display = 'block';
+      defaultVideo.style.display = 'none';
+    document.getElementById('cleanup').src = 'nav2thing.gif';
+    document.getElementById('cleanupLink').href = 'spike://';
+            
+    }
         }
 
         // Call the function to set the correct link when the page loads
