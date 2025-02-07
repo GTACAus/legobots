@@ -363,12 +363,12 @@
         <h2>More LEGO Spike Projects</h2>
         <p>Explore other cool projects like this one. From creative building to fun coding, there’s always more to learn with LEGO Spike!</p>
         <h3>The Thing</h3>
-        <a href="https://spike.legoeducation.com/prime/unit-plans/blt48d4c1b4368b1fc5/lesson-detail/blt9ef07d2b41cc7beb">
-            <img src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/blt0f794ee199aaa707/5ec6d1d2e014445192ea3f88/lesson-header-bi.png" alt="The Thing" style="width: 48%;">
+        <a id="thingLink" href="https://spike.legoeducation.com/prime/unit-plans/blt48d4c1b4368b1fc5/lesson-detail/blt9ef07d2b41cc7beb">
+            <img id="thing" src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/blt0f794ee199aaa707/5ec6d1d2e014445192ea3f88/lesson-header-bi.png" alt="The Thing" style="width: 48%;">
         </a>
         <h3>Leo the Trainer</h3>
-        <a href="https://spike.legoeducation.com/prime/models/blta68b76b4db027067">
-            <img src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/blt07d51a0b5fb99538/5ec6d1dd1df2000f9ba95c9e/lesson-header-bi.png" alt="Leo the Trainer" style="width: 48%;">
+        <a id="leoLink" href="https://spike.legoeducation.com/prime/models/blta68b76b4db027067">
+            <img id="leo" src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/blt07d51a0b5fb99538/5ec6d1dd1df2000f9ba95c9e/lesson-header-bi.png" alt="Leo the Trainer" style="width: 48%;">
         </a>
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
@@ -615,6 +615,11 @@ function isiPad() {
       document.getElementById('uploadButton').style.display = 'none';
       ipadVideo.style.display = 'block';
       defaultVideo.style.display = 'none';
+    document.getElementById('thing').src = 'nav2thing.gif';
+    document.getElementById('thingLink').href = 'spike://';
+            
+    document.getElementById('leo').src = 'nav2leo.gif';
+    document.getElementById('thingLink').href = 'spike://';
     }
     </script>
 </body>
