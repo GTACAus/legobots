@@ -577,7 +577,19 @@
             document.getElementById('pdfOverlay').style.display = 'none';
         }
 
+        // Function to set the upload button link for different devices
         function setUploadButtonLink() {
+            const uploadButton = document.getElementById('uploadButton');
+
+            if (isiPad()) {
+      document.getElementById('iPadMessage').style.display = 'block';
+      document.getElementById('uploadButton').style.display = 'none';
+      ipadVideo.style.display = 'block';
+      defaultVideo.style.display = 'none';
+    document.getElementById('cleanup').src = 'nav2cleanup.gif';
+    document.getElementById('cleanupLink').href = 'spike://';
+
+                function setUploadButtonLink() {
       const uploadButton = document.getElementById('uploadButton');
 
       if (isiPad()) {
@@ -606,8 +618,9 @@
         uploadButton.onclick = function() {
           window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
         };
-      }
-            
+                
+    }
+        }
 
         // Call the function to set the correct link when the page loads
         setUploadButtonLink();
