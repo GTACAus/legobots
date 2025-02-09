@@ -389,6 +389,38 @@
         return true;
       }
 
+                function setUploadButtonLink() {
+      const uploadButton = document.getElementById('uploadButton');
+
+      if (isiPad()) {
+        uploadButton.onclick = function() {
+          let appOpened = false; 
+          const fallbackDelay = 1500; // 1.5 seconds
+          const storeURL = 'https://apps.apple.com/us/app/spike-lego-education/id6443545905';
+          
+          // 1. Try to open the SPIKE app
+          window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
+          
+          // 2. If the user actually leaves the browser (app opens), "blur" is triggered
+          window.onblur = function() {
+            appOpened = true;
+          };
+          
+          // 3. After the delay, if still not blurred, open the App Store
+          setTimeout(function() {
+            if (!appOpened) {
+              window.open(storeURL, '_blank');
+            }
+          }, fallbackDelay);
+        };
+      } else {
+        // If not iPad, just open the SPIKE web link
+        uploadButton.onclick = function() {
+          window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
+        };
+      }
+    }
+            
       // On iPadOS 13+, Safari might report "MacIntel" but has touch points
       if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) {
         return true;
@@ -589,36 +621,7 @@
     document.getElementById('cleanup').src = 'nav2cleanup.gif';
     document.getElementById('cleanupLink').href = 'spike://';
 
-                function setUploadButtonLink() {
-      const uploadButton = document.getElementById('uploadButton');
-
-      if (isiPad()) {
-        uploadButton.onclick = function() {
-          let appOpened = false; 
-          const fallbackDelay = 1500; // 1.5 seconds
-          const storeURL = 'https://apps.apple.com/us/app/spike-lego-education/id6443545905';
-          
-          // 1. Try to open the SPIKE app
-          window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-          
-          // 2. If the user actually leaves the browser (app opens), "blur" is triggered
-          window.onblur = function() {
-            appOpened = true;
-          };
-          
-          // 3. After the delay, if still not blurred, open the App Store
-          setTimeout(function() {
-            if (!appOpened) {
-              window.open(storeURL, '_blank');
-            }
-          }, fallbackDelay);
-        };
-      } else {
-        // If not iPad, just open the SPIKE web link
-        uploadButton.onclick = function() {
-          window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-        };
-                
+               
     }
         }
 
