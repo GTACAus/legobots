@@ -413,7 +413,7 @@ function isiPad() {
           const storeURL = 'https://apps.apple.com/us/app/spike-lego-education/id6443545905';
           
           // 1. Try to open the SPIKE app
-          window.location = 'spike://Digger.llsp3';
+          window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
           
           // 2. If the user actually leaves the browser (app opens), "blur" is triggered
           window.onblur = function() {
