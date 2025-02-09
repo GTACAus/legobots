@@ -577,7 +577,6 @@
             document.getElementById('pdfOverlay').style.display = 'none';
         }
 
-        // Function to set the upload button link for different devices
         function setUploadButtonLink() {
       const uploadButton = document.getElementById('uploadButton');
 
@@ -607,6 +606,9 @@
         uploadButton.onclick = function() {
           window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
         };
+      }
+    }
+        }
 
         // Call the function to set the correct link when the page loads
         setUploadButtonLink();
