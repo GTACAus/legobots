@@ -295,8 +295,21 @@
     <div class="card">
         <h1>08/10</h1>
         <h2>Test Your Bot</h2>
+          <!-- Video for iPad (hidden by default) -->
+          <video
+            id="ipadVideo"
+            width="600"
+            height="300"
+            controls
+            style="display: none;"
+          >
+            <source src="testiPad.mp4" type="video/mp4">
+            <source src="testiPad.mp4" type="video/quicktime">    
+            Your browser does not support the video tag.
+          </video>
 
-        <video width="600" height="300" controls>
+  <!-- Video for non-iPad devices -->
+        <video id="defaultVideo" width="600" height="300" controls>
             <source src="IdentifyUpload_MM_v1 Music.mp4" type="video/mp4">
             <source src="IdentifyUpload_MM_v1 Music.mp4" type="video/quicktime">
             Your browser does not support the video tag.
@@ -305,6 +318,13 @@
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
             <button id="uploadButton">UPLOAD AND TEST CODE</button>
+            <!-- NEW: Hidden by default; will be shown only on iPad -->
+            <button 
+              id="iPadMessage" 
+              style="display: none;" 
+              onclick="window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905','_blank')">
+              Make sure you have SPIKE Education installed
+            </button>
             <button onclick="nextPage()">Next &#9654;</button>
         </div>
     </div>
@@ -342,13 +362,13 @@
         <h2>More LEGO Spike Projects</h2>
         <p>Explore other cool projects like this one. From creative building to fun coding, there’s always more to learn with LEGO Spike!</p>
         <h3>Help!</h3>
-        <a href="https://spike.legoeducation.com/prime/unit-plans/bltdfae10d779620d2b/lesson-detail/blt787bc3ee9c9023aa">
-            <img src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/blt8637a51c69a4ea6b/60e564960f2b3833d0f69fad/lesson-header.png" alt="Help!" style="width: 38%;">
+        <a id="helpLink" href="https://spike.legoeducation.com/prime/unit-plans/bltdfae10d779620d2b/lesson-detail/blt787bc3ee9c9023aa">
+            <img id="help" src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/blt8637a51c69a4ea6b/60e564960f2b3833d0f69fad/lesson-header.png" alt="Help!" style="width: 38%;">
 
         </a>
         <h3>Place your order</h3>
-        <a href="https://spike.legoeducation.com/prime/unit-plans/blt7e6f02fb2c257cfc/lesson-detail/bltf8b8594561b857f0">
-            <img src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/bltf31738f31f782433/6109422a7b2aa336d6ba178f/lesson-header.png" alt="Place your order" style="width: 38%;">
+        <a id="placeLink"href="https://spike.legoeducation.com/prime/unit-plans/blt7e6f02fb2c257cfc/lesson-detail/bltf8b8594561b857f0">
+            <img id="place" src="https://spike.legoeducation.com/content/v3/assets/blt293eea581807678a/bltf31738f31f782433/6109422a7b2aa336d6ba178f/lesson-header.png" alt="Place your order" style="width: 38%;">
         </a>
         <div class="nav-buttons">
             <button onclick="prevPage()">&#9664; Prev</button>
@@ -369,30 +389,20 @@
         const fileName = 'wordcloudidentify.txt';
         const apiUrl = `https://api.github.com/gists/${gistId}`;
 
-        // Detect if the device is an iPad
         function isiPad() {
-            return /iPad/i.test(navigator.userAgent);
-        }
+      // If user agent explicitly contains "iPad" (older iOS versions)
+      if (navigator.userAgent.includes("iPad")) {
+        return true;
+      }
 
-        // Set the appropriate link for the upload button based on the device
-        function setUploadButtonLink() {
-            const uploadButton = document.getElementById('uploadButton');
+      // On iPadOS 13+, Safari might report "MacIntel" but has touch points
+      if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) {
+        return true;
+      }
 
-            if (isiPad()) {
-                uploadButton.onclick = function() {
-                    // Attempt to open the LEGO Spike app
-                    window.location.href = 'legoedu-spike://';
-                    // If the app doesn't open, navigate to the regular site after a short delay
-                    setTimeout(function() {
-                        window.open('https://apps.apple.com/us/app/spike-lego-education/id6443545905', '_blank');
-                    }, 500);
-                };
-            } else {
-                uploadButton.onclick = function() {
-                    window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
-                };
-            }
-        }
+      return false;
+    }
+
         
         let currentPage = 0;
         const cards = document.querySelectorAll('.card');
@@ -569,7 +579,17 @@
         function closePDF() {
             document.getElementById('pdfOverlay').style.display = 'none';
         }
-
+if (isiPad()) {
+      document.getElementById('iPadMessage').style.display = 'block';
+      document.getElementById('uploadButton').style.display = 'none';
+      ipadVideo.style.display = 'block';
+      defaultVideo.style.display = 'none';
+    document.getElementById('thing').src = 'nav2thing.gif';
+    document.getElementById('thingLink').href = 'spike://';
+            
+    document.getElementById('leo').src = 'nav2leo.gif';
+    document.getElementById('thingLink').href = 'spike://';
+    }
     </script>
 </body>
 </html>
