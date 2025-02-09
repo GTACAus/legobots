@@ -579,18 +579,34 @@
 
         // Function to set the upload button link for different devices
         function setUploadButtonLink() {
-            const uploadButton = document.getElementById('uploadButton');
+      const uploadButton = document.getElementById('uploadButton');
 
-            if (isiPad()) {
-      document.getElementById('iPadMessage').style.display = 'block';
-      document.getElementById('uploadButton').style.display = 'none';
-      ipadVideo.style.display = 'block';
-      defaultVideo.style.display = 'none';
-    document.getElementById('cleanup').src = 'nav2cleanup.gif';
-    document.getElementById('cleanupLink').href = 'spike://';
-            
-    }
-        }
+      if (isiPad()) {
+        uploadButton.onclick = function() {
+          let appOpened = false; 
+          const fallbackDelay = 1500; // 1.5 seconds
+          const storeURL = 'https://apps.apple.com/us/app/spike-lego-education/id6443545905';
+          
+          // 1. Try to open the SPIKE app
+          window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
+          
+          // 2. If the user actually leaves the browser (app opens), "blur" is triggered
+          window.onblur = function() {
+            appOpened = true;
+          };
+          
+          // 3. After the delay, if still not blurred, open the App Store
+          setTimeout(function() {
+            if (!appOpened) {
+              window.open(storeURL, '_blank');
+            }
+          }, fallbackDelay);
+        };
+      } else {
+        // If not iPad, just open the SPIKE web link
+        uploadButton.onclick = function() {
+          window.open('https://spike.legoeducation.com/prime/lobby/', '_blank');
+        };
 
         // Call the function to set the correct link when the page loads
         setUploadButtonLink();
