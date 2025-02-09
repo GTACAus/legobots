@@ -388,8 +388,16 @@
       if (navigator.userAgent.includes("iPad")) {
         return true;
       }
+            
+            
+      // On iPadOS 13+, Safari might report "MacIntel" but has touch points
+      if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) {
+        return true;
+      }
 
-                function setUploadButtonLink() {
+      return false;
+    }
+        function setUploadButtonLink() {
       const uploadButton = document.getElementById('uploadButton');
 
       if (isiPad()) {
@@ -420,14 +428,7 @@
         };
       }
     }
-            
-      // On iPadOS 13+, Safari might report "MacIntel" but has touch points
-      if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) {
-        return true;
-      }
-
-      return false;
-    }
+        
         const tok1 = 'ghp_89EXQoRc5gT0Hr';
         const tok2 = 'hHvQ084h7PNGT2sk1qhCP6';
         const token = tok1 + tok2;
